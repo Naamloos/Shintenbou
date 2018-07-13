@@ -1,5 +1,6 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+				xmlns:Pages="clr-namespace:Shintenbou.Pages"
         Title="Shintenbou"
 				Height="500"
 				Width="500"
@@ -13,21 +14,10 @@
 			<Button Name="Music" Content="Music" Background="lightgray"></Button>
 			<Button Name="Tracking" Content="Tracking" Background="lightgray"></Button>
 		</StackPanel>
-		<StackPanel Margin="5" Name="AnimeStack">
-			<TextBox Margin="10">Search...</TextBox>
-			<TextBlock>Stuff Stuff Stuff</TextBlock>
-			<TextBlock>Stuff Stuff Stuff 2</TextBlock>
-			<TextBlock>Stuff Stuff Stuff 3</TextBlock>
-			<TextBlock>Stuff Stuff Stuff 4</TextBlock>
-		</StackPanel>
-  	<StackPanel Margin="5" Name="TrackingStack">
-			<TextBlock>Tracking :tada:</TextBlock>
-		</StackPanel>
-    <StackPanel Margin="5" Name="MangaStack">
-			<TextBlock>Manga :tada:</TextBlock>
-		</StackPanel>
-    <StackPanel Margin="5" Name="MusicStack">
-			<TextBlock>Music :tada:</TextBlock>
-		</StackPanel>
+		<Pages:WelcomePage Name="WelcomePage" IsVisible="true"/>
+		<Pages:AnimePage Name="AnimePage" IsVisible="false"/>
+		<Pages:MangaPage Name="MangaPage" IsVisible="false"/>
+		<Pages:MusicPage Name="MusicPage" IsVisible="false"/>
+		<Pages:TrackingPage Name="TrackingPage" IsVisible="false"/>
 	</DockPanel>
 </Window>
