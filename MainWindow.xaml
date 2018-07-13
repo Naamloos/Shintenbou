@@ -1,5 +1,23 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Shintenbou">
-    Hello World!
+        Title="Shintenbou"
+				Height="500"
+				Width="500"
+				MinWidth="250"
+				MinHeight="100"
+				>
+	<DockPanel Background="lightgray">
+		<StackPanel Width="100" Background="dimgray" >
+			<Button Name="Anime" Content="Anime" Background="lightgray"></Button>
+			<Button Name="Manga" Content="Manga" Background="lightgray"></Button>
+			<Button Name="Music" Content="Music" Background="lightgray"></Button>
+			<Button Name="Tracking" Content="Tracking" Background="lightgray"></Button>
+		</StackPanel>
+		<StackPanel Margin="5">
+			<TextBlock>Stuff Stuff Stuff</TextBlock>
+			<TextBlock>Stuff Stuff Stuff 2</TextBlock>
+			<TextBlock>Stuff Stuff Stuff 3</TextBlock>
+			<TextBlock>Stuff Stuff Stuff 4</TextBlock>
+		</StackPanel>
+	</DockPanel>
 </Window>
