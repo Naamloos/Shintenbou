@@ -8,7 +8,7 @@
 		<Panel Background="Red" Height="150" Width="150">
 			<Image Height="150" Width="150" Name="Logo"></Image>
 		</Panel>
-		<TextBlock>Welcome to Shintenbou! (that's a placeholder logo :^)</TextBlock>
+		<TextBlock HorizontalAlignment="Center">Welcome to Shintenbou</TextBlock>
 	</StackPanel>
 
 </UserControl>
