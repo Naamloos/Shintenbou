@@ -7,6 +7,7 @@ namespace Shintenbou
 {
 	public class MainWindow : Window
 	{
+        private Database database = new Database();
 		Button Anime;
 		Button Manga;
 		Button Music;
