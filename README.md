@@ -9,3 +9,5 @@ Manga - Read to your heart's content and pick up where you left off whenever you
 Music - All of your favourite JPop artists in one place.
 
 Tracking - Keep track of what you've watched and how long you've been reading.
+
+![alt text](https://avalonia.needs-to-s.top/351114.png "Shintenbou")
