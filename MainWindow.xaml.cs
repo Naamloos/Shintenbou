@@ -5,21 +5,21 @@ using System;
 
 namespace Shintenbou
 {
-    public class MainWindow : Window
-    {
+	public class MainWindow : Window
+	{
 		Button Anime;
 		Button Manga;
 		Button Music;
 		Button Tracking;
 
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+		public MainWindow()
+		{
+			InitializeComponent();
+		}
 
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
+		private void InitializeComponent()
+		{
+			AvaloniaXamlLoader.Load(this);
 
 			// Setting references to controls
 			this.Anime = this.FindControl<Button>("Anime");
