@@ -2,12 +2,14 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using System;
+using System.Collections.Generic;
 
 namespace Shintenbou
 {
 	public class MainWindow : Window
 	{
-        private Database database = new Database();
+        private Database database { get; set; }
+        private List<string> StackNames { get; set; }
 		Button Anime;
 		Button Manga;
 		Button Music;
@@ -15,6 +17,14 @@ namespace Shintenbou
 
 		public MainWindow()
 		{
+            database = new Database();
+            StackNames = new List<string>()
+            {
+                "AnimeStack",
+                "TrackingStack",
+                "MangaStack",
+                "MusicStack"
+            };
 			InitializeComponent();
 		}
 
@@ -38,21 +48,32 @@ namespace Shintenbou
 		private void Tracking_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			Console.WriteLine("Clicked Tracking Button");
+            ChangeStackTo("TrackingStack");
 		}
 
 		private void Music_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			Console.WriteLine("Clicked Music Button");
+            ChangeStackTo("MusicStack");
 		}
 
 		private void Manga_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			Console.WriteLine("Clicked Manga Button");
+            ChangeStackTo("MangaStack");
 		}
 
 		private void Anime_Click(object sender, Avalonia.Interactivity.RoutedEventArgs e)
 		{
 			Console.WriteLine("Clicked Anime Button");
+            ChangeStackTo("AnimeStack");
 		}
+
+        //I'm lazy
+        public void ChangeStackTo(string stack_name)
+        {
+            foreach(var stack in StackNames) this.Find<StackPanel>(stack).IsVisible = false;
+            this.Find<StackPanel>(stack_name).IsVisible = true;
+        }
 	}
 }

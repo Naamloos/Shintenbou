@@ -13,12 +13,21 @@
 			<Button Name="Music" Content="Music" Background="lightgray"></Button>
 			<Button Name="Tracking" Content="Tracking" Background="lightgray"></Button>
 		</StackPanel>
-		<StackPanel Margin="5">
+		<StackPanel Margin="5" Name="AnimeStack">
 			<TextBox Margin="10">Search...</TextBox>
 			<TextBlock>Stuff Stuff Stuff</TextBlock>
 			<TextBlock>Stuff Stuff Stuff 2</TextBlock>
 			<TextBlock>Stuff Stuff Stuff 3</TextBlock>
 			<TextBlock>Stuff Stuff Stuff 4</TextBlock>
+		</StackPanel>
+  	<StackPanel Margin="5" Name="TrackingStack">
+			<TextBlock>Tracking :tada:</TextBlock>
+		</StackPanel>
+    <StackPanel Margin="5" Name="MangaStack">
+			<TextBlock>Manga :tada:</TextBlock>
+		</StackPanel>
+    <StackPanel Margin="5" Name="MusicStack">
+			<TextBlock>Music :tada:</TextBlock>
 		</StackPanel>
 	</DockPanel>
 </Window>
