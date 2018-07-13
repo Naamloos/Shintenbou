@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -26,6 +27,9 @@ namespace Shintenbou.Pages
 			{
 				this.LogoImage.Source = new Bitmap(str);
 			}
+
+			// Hacky fix, update image margin when any property of the window changed (including resize)
+			// TODO: find event that returns when window resize
 		}
 	}
 }

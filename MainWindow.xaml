@@ -7,17 +7,23 @@
 				MinWidth="250"
 				MinHeight="100"
 				>
-	<DockPanel Background="lightgray">
-		<StackPanel Width="100" Background="dimgray" >
+	<Grid Background="lightgray">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="100"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+		<StackPanel Grid.Column="0" Width="100" Background="dimgray">
 			<Button Name="Anime" Content="Anime" Background="lightgray"></Button>
 			<Button Name="Manga" Content="Manga" Background="lightgray"></Button>
 			<Button Name="Music" Content="Music" Background="lightgray"></Button>
 			<Button Name="Tracking" Content="Tracking" Background="lightgray"></Button>
 		</StackPanel>
-		<Pages:WelcomePage Name="WelcomePage" IsVisible="true"/>
-		<Pages:AnimePage Name="AnimePage" IsVisible="false"/>
-		<Pages:MangaPage Name="MangaPage" IsVisible="false"/>
-		<Pages:MusicPage Name="MusicPage" IsVisible="false"/>
-		<Pages:TrackingPage Name="TrackingPage" IsVisible="false"/>
-	</DockPanel>
+
+		<Pages:WelcomePage Grid.Column="1" Name="WelcomePage" IsVisible="true" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+		<Pages:AnimePage Grid.Column="1"  Name="AnimePage" IsVisible="false"/>
+		<Pages:MangaPage Grid.Column="1"  Name="MangaPage" IsVisible="false"/>
+		<Pages:MusicPage Grid.Column="1"  Name="MusicPage" IsVisible="false"/>
+		<Pages:TrackingPage Grid.Column="1"  Name="TrackingPage" IsVisible="false"/>
+		
+	</Grid>
 </Window>

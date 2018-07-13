@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using System;
 using System.Collections.Generic;
+using Shintenbou.Pages;
 
 namespace Shintenbou
 {
@@ -16,7 +17,7 @@ namespace Shintenbou
 		Button Music;
 		Button Tracking;
 
-		UserControl WelcomePage;
+		WelcomePage WelcomePage;
 		UserControl AnimePage;
 		UserControl MangaPage;
 		UserControl MusicPage;
@@ -39,7 +40,7 @@ namespace Shintenbou
 			this.Tracking = this.FindControl<Button>("Tracking");
 
 			// Setting references to pages
-			this.WelcomePage = this.FindControl<UserControl>("WelcomePage");
+			this.WelcomePage = this.FindControl<WelcomePage>("WelcomePage");
 			this.AnimePage = this.FindControl<UserControl>("AnimePage");
 			this.MangaPage = this.FindControl<UserControl>("MangaPage");
 			this.MusicPage = this.FindControl<UserControl>("MusicPage");
