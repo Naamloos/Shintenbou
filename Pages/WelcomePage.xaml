@@ -3,11 +3,8 @@
 						 xmlns:pages="clr-namespace:Pages"
 						 >
 
-	<StackPanel Gap="15">
-		<!-- Wrapped the image on a red panel to visualize the place it will appear-->
-		<Panel Background="Red" Height="150" Width="150">
-			<Image Height="150" Width="150" Name="Logo"></Image>
-		</Panel>
+	<StackPanel Gap="5">
+		<Image Height="100" Width="250" Name="Logo"></Image>
 		<TextBlock HorizontalAlignment="Center">Welcome to Shintenbou</TextBlock>
 	</StackPanel>
 

@@ -12,6 +12,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\logo.png" />
     <None Remove="Assets\logoplaceholder.png" />
     <None Remove="Pages\AnimePage.xaml" />
     <None Remove="Pages\MangaPage.xaml" />
@@ -20,6 +21,7 @@
     <None Remove="Pages\WelcomePage.xaml" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Assets\logo.png" />
     <EmbeddedResource Include="Assets\logoplaceholder.png" />
   </ItemGroup>
   <ItemGroup>

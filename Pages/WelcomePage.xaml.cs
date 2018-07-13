@@ -22,14 +22,11 @@ namespace Shintenbou.Pages
 			this.LogoImage = this.FindControl<Image>("Logo");
 
 			var asm = Assembly.GetExecutingAssembly();
-			var res = "Shintenbou.Assets.logoplaceholder.png";
+			var res = "Shintenbou.Assets.logo.png";
 			using (var str = asm.GetManifestResourceStream(res))
 			{
 				this.LogoImage.Source = new Bitmap(str);
 			}
-
-			// Hacky fix, update image margin when any property of the window changed (including resize)
-			// TODO: find event that returns when window resize
 		}
 	}
 }
