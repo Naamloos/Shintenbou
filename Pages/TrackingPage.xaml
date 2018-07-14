@@ -1,7 +1,24 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-						 xmlns:pages="clr-namespace:Pages">
-	<StackPanel>
-		<TextBlock>Tracking</TextBlock>
-	</StackPanel>
+						 xmlns:pages="clr-namespace:Pages"
+						 >
+  
+	<Grid Background="lightgray" Name="TrackingGrid">
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition MinWidth="150"/>
+    </Grid.ColumnDefinitions>
+    
+    <Grid.RowDefinitions>
+      <RowDefinition Height="25" />
+      <RowDefinition Height="250" />
+      <RowDefinition Height="25" />
+      <RowDefinition Height="250" />
+    </Grid.RowDefinitions>
+    
+    <TextBlock Margin="25,0,0,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">Favourite Anime</TextBlock>
+    <Image Margin="25,0,0,0" Grid.Row="1" Grid.Column="0" Name="WeebOne"/>
+    <Image Margin="25,0,0,0" Grid.Row="1" Grid.Column="1" Name="WeebTwo"/>
+    <TextBlock Margin="25,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0">Favourite Manga</TextBlock>
+	</Grid>
+
 </UserControl>
