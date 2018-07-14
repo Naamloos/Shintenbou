@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace Shintenbou
 {
@@ -14,7 +13,7 @@ namespace Shintenbou
         /// <summary>
         /// Contains all the user's favourited manga
         /// </summary>
-        public DbSet<FavouritedManga> FavouriteManaga { get; set; }
+        public DbSet<FavouritedManga> FavouriteManga { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

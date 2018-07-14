@@ -15,6 +15,7 @@ namespace Shintenbou.Pages
     {
         Database Db { get; set; }
         Grid Grid { get; set; }
+
         public TrackingPage()
         {
             Db = new Database();
@@ -25,12 +26,15 @@ namespace Shintenbou.Pages
         {
             AvaloniaXamlLoader.Load(this);
             Grid = this.Find<Grid>("TrackingGrid");
+            LoadFavoriteAnime();
+            LoadFavoriteManga();
         }
         
         //ef core is being weird and wont see that the tables exist so I've put this in comments to allow the app to run
-        /*
+        
         private void LoadFavoriteAnime()
         {
+            var favani = Db.FavouriteAnime.ToList();
             for(var i = 0; i < Db.FavouriteAnime.Count(); i++) 
             {
                 Grid.ColumnDefinitions.Add(new ColumnDefinition()
@@ -44,7 +48,7 @@ namespace Shintenbou.Pages
                     Name = $"Img{i}",
                     MinWidth = 150,
                     MinHeight = 250,
-                    Source = new Bitmap(Db.FavouriteAnime[i].CoverImage.Medium)
+                    Source = new Bitmap(favani[i].ImageUrl)
                 };
                 child.SetValue(Grid.ColumnProperty, i);
                 child.SetValue(Grid.RowProperty, 1);
@@ -54,6 +58,7 @@ namespace Shintenbou.Pages
 
         private void LoadFavoriteManga()
         {
+            var favman = Db.FavouriteManga.ToList();
             for(var i = 0; i < Db.FavouriteManga.Count(); i++) 
             {
                 Grid.ColumnDefinitions.Add(new ColumnDefinition()
@@ -67,13 +72,12 @@ namespace Shintenbou.Pages
                     Name = $"Img{i}",
                     MinWidth = 150,
                     MinHeight = 250,
-                    Source = new Bitmap(Db.FavouriteManga[i].CoverImage.Medium)
+                    Source = new Bitmap(favman[i].ImageUrl)
                 };
                 child.SetValue(Grid.ColumnProperty, i);
                 child.SetValue(Grid.RowProperty, 4);
                 Grid.Children.Add(child);
             }
         }
-        */
     }
 }
