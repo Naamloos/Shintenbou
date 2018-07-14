@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,6 @@ namespace Shintenbou
 {
 	public class MainWindow : Window
 	{
-        private Database Database { get; set; }
-
 		Button Anime;
 		Button Manga;
 		Button Music;
@@ -25,7 +24,6 @@ namespace Shintenbou
 
 		public MainWindow()
 		{
-			this.Database = new Database();
 			InitializeComponent();
 		}
 
@@ -57,12 +55,17 @@ namespace Shintenbou
 
 		private void MainWindow_KeyDown(object sender, Avalonia.Input.KeyEventArgs e)
 		{
-			if (e.Key == Avalonia.Input.Key.F2)
-			{
-				var manga = new Windows.MangaReaderWindow();
-				manga.Show();
-			}
-				
+            switch(e.Key)
+            {
+                case Key.F2:
+                    var manga = new Windows.MangaReaderWindow();
+				    manga.Show();
+                    break;
+
+                case Key.Escape:
+                    App.Current.Exit();
+                    break;
+            }
 		}
 
 		private void Tracking_Click(object sender, RoutedEventArgs e)

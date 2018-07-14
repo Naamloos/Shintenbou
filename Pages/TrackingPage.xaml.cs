@@ -13,12 +13,14 @@ namespace Shintenbou.Pages
 {
     public class TrackingPage : UserControl
     {
-        Database Db { get; set; }
+        private Database Db { get; set; }
+
         Grid Grid { get; set; }
 
         public TrackingPage()
         {
             Db = new Database();
+            Db.Database.EnsureCreated();
             this.InitializeComponent();
         }
 
@@ -26,16 +28,14 @@ namespace Shintenbou.Pages
         {
             AvaloniaXamlLoader.Load(this);
             Grid = this.Find<Grid>("TrackingGrid");
-            LoadFavoriteAnime();
-            LoadFavoriteManga();
+            LoadFavouriteAnime();
+            LoadFavouriteManga();
         }
         
-        //ef core is being weird and wont see that the tables exist so I've put this in comments to allow the app to run
-        
-        private void LoadFavoriteAnime()
+        private void LoadFavouriteAnime()
         {
             var favani = Db.FavouriteAnime.ToList();
-            for(var i = 0; i < Db.FavouriteAnime.Count(); i++) 
+            for(var i = 0; i < favani.Count(); i++) 
             {
                 Grid.ColumnDefinitions.Add(new ColumnDefinition()
                 {
@@ -56,10 +56,10 @@ namespace Shintenbou.Pages
             }
         }
 
-        private void LoadFavoriteManga()
+        private void LoadFavouriteManga()
         {
             var favman = Db.FavouriteManga.ToList();
-            for(var i = 0; i < Db.FavouriteManga.Count(); i++) 
+            for(var i = 0; i < favman.Count(); i++) 
             {
                 Grid.ColumnDefinitions.Add(new ColumnDefinition()
                 {
