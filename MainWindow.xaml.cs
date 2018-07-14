@@ -51,6 +51,18 @@ namespace Shintenbou
 			this.Manga.Click += Manga_Click;
 			this.Music.Click += Music_Click;
 			this.Tracking.Click += Tracking_Click;
+
+			this.KeyDown += MainWindow_KeyDown;
+		}
+
+		private void MainWindow_KeyDown(object sender, Avalonia.Input.KeyEventArgs e)
+		{
+			if (e.Key == Avalonia.Input.Key.F2)
+			{
+				var manga = new Windows.MangaReaderWindow();
+				manga.Show();
+			}
+				
 		}
 
 		private void Tracking_Click(object sender, RoutedEventArgs e)

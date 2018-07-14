@@ -19,6 +19,7 @@
     <None Remove="Pages\MusicPage.xaml" />
     <None Remove="Pages\TrackingPage.xaml" />
     <None Remove="Pages\WelcomePage.xaml" />
+    <None Remove="Windows\MangaReaderWindow.xaml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\logo.png" />
@@ -45,6 +46,9 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\WelcomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Windows\MangaReaderWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>

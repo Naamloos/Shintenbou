@@ -4,16 +4,16 @@ using Avalonia.Logging.Serilog;
 
 namespace Shintenbou
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            BuildAvaloniaApp().Start<MainWindow>();
-        }
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			BuildAvaloniaApp().Start<MainWindow>();
+		}
 
-        public static AppBuilder BuildAvaloniaApp()
-            => AppBuilder.Configure<App>()
-                .UsePlatformDetect()
-                .LogToDebug();
-    }
+		public static AppBuilder BuildAvaloniaApp()
+			=> AppBuilder.Configure<App>()
+				.UsePlatformDetect()
+				.LogToDebug();
+	}
 }

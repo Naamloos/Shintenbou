@@ -1,0 +1,9 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MangaReaderWindow"
+				Width="900"
+				Height="700">
+	<ScrollViewer Name="scroller" Background="#111111">
+		<Grid Name="pagelist"></Grid>
+	</ScrollViewer>
+</Window>
