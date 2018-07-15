@@ -1,0 +1,51 @@
+query ($search: String) {
+  Page {
+    pageInfo {
+      total
+    }
+    
+    media (search: $search, type: ANIME) {
+      # ID
+      id 
+      
+      # Anime Information
+      episodes
+      description
+      isAdult
+      status
+      title {
+        romaji
+        native
+        english
+      }
+      coverImage {
+        large
+        medium
+      }
+      meanScore
+
+      # Dates
+      startDate {
+        year
+        month
+        day
+      }
+      endDate {
+        year
+        month
+        day
+      }
+
+      # Next Episode
+      nextAiringEpisode {
+        id
+        airingAt
+        timeUntilAiring
+        episode
+      }
+
+      # Url
+      siteUrl
+    }
+  }
+}
