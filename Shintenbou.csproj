@@ -20,10 +20,12 @@
     <None Remove="Pages\TrackingPage.xaml" />
     <None Remove="Pages\WelcomePage.xaml" />
     <None Remove="Windows\MangaReaderWindow.xaml" />
+    <None Remove="Rest\Schema\AnilistAnime.graphql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\logo.png" />
     <EmbeddedResource Include="Assets\logoplaceholder.png" />
+    <EmbeddedResource Include="Rest\Schema\AnilistAnime.graphql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.6.2-build5670-beta" />
