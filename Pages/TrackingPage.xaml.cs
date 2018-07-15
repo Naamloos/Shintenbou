@@ -2,12 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
-using Avalonia.Media;
-using System;
-using System.IO;
 using System.Linq;
-using System.Collections.Generic;
-using Shintenbou;
 
 namespace Shintenbou.Pages
 {

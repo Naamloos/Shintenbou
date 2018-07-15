@@ -1,15 +1,13 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using System;
-using System.Collections.Generic;
 using Shintenbou.Pages;
 
 namespace Shintenbou
 {
-	public class MainWindow : Window
+    public class MainWindow : Window
 	{
 		Button Anime;
 		Button Manga;
@@ -53,7 +51,7 @@ namespace Shintenbou
 			this.KeyDown += MainWindow_KeyDown;
 		}
 
-		private void MainWindow_KeyDown(object sender, Avalonia.Input.KeyEventArgs e)
+		private void MainWindow_KeyDown(object sender, KeyEventArgs e)
 		{
             switch(e.Key)
             {
