@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Input;
 using Avalonia.Media.Imaging;
 using Avalonia.Interactivity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Shintenbou.Rest;
@@ -32,22 +33,22 @@ namespace Shintenbou.Pages
             this.Button.Click += OnQuerySubmit;
         }
 
-        private void OnQuerySubmit(object sender, RoutedEventArgs e)
+        private async void OnQuerySubmit(object sender, RoutedEventArgs e)
         {
-            var animes = Anilist.GetAnimeByName(this.TextBox.Text).ToList();
-            DisplayAnimes(animes);
+            var animes = await Anilist.GetAnimeByNameAsync(this.TextBox.Text);
+            DisplayAnimes(animes.ToList());
         }
 
-        private void OnKeyDown(object sender, KeyEventArgs e)
+        private async void OnKeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Enter)
             {
-                var animes = Anilist.GetAnimeByName(this.TextBox.Text).ToList();
-                DisplayAnimes(animes);
+                var animes = await Anilist.GetAnimeByNameAsync(this.TextBox.Text);
+                DisplayAnimes(animes.ToList());
             }
         }
 
-        private void DisplayAnimes(List<AnilistAnime> animes)
+        private void DisplayAnimes(IReadOnlyList<AnilistAnime> animes)
         {
             int colcount = 0;
             int rowcount = 1;

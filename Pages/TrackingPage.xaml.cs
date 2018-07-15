@@ -46,7 +46,7 @@ namespace Shintenbou.Pages
                     Source = new Bitmap(favani[i].ImageUrl)
                 };
                 child.SetValue(Grid.ColumnProperty, i);
-                child.SetValue(Grid.RowProperty, 1);
+                child.SetValue(Grid.RowProperty, 2);
                 Grid.Children.Add(child);
             }
         }

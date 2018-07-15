@@ -11,14 +11,14 @@
 
       <Grid.RowDefinitions>
         <RowDefinition Height="25" />
+        <RowDefinition Height="25" />
         <RowDefinition Height="250" />
         <RowDefinition Height="25" />
         <RowDefinition Height="250" />
       </Grid.RowDefinitions>
-
-      <TextBlock Margin="25,0,0,0" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">Favourite Anime</TextBlock>
-
-      <TextBlock Margin="25,0,0,0" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0">Favourite Manga</TextBlock>
+      <Button>Import Favourites</Button>
+      <TextBlock Margin="25,0,0,0" VerticalAlignment="Center" Grid.Row="1" Grid.Column="0">Favourite Anime</TextBlock>
+      <TextBlock Margin="25,0,0,0" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0">Favourite Manga</TextBlock>
     </Grid>
   </ScrollViewer>
 </UserControl>
