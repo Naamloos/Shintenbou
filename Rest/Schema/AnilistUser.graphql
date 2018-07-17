@@ -1,0 +1,103 @@
+query($name:String, $pageNumber:Int = 1, $perPage: Int = 25)
+{
+  User(name: $name)
+  {
+    name
+    id
+    avatar {
+      large
+      medium
+    }
+    siteUrl
+    about
+    favourites
+    {
+      anime(page: $pageNumber, perPage: $perPage)
+			{
+        pageInfo
+        {
+          total
+          hasNextPage
+        }
+        nodes
+        {
+          id 
+          episodes
+          description
+          isAdult
+          status
+          title {
+            romaji
+            native
+            english
+          }
+          coverImage {
+            large
+            medium
+          }
+          meanScore
+          startDate {
+            year
+            month
+            day
+          }
+          endDate {
+            year
+            month
+            day
+          }
+          nextAiringEpisode {
+            id
+            airingAt
+            timeUntilAiring
+            episode
+          }
+          siteUrl
+        }
+      }
+      manga(page: $pageNumber, perPage: $perPage)
+			{
+        nodes
+        {
+          pageInfo
+          {
+            total
+            hasNextPage
+          }
+          id 
+          episodes
+          description
+          isAdult
+          status
+          title {
+            romaji
+            native
+            english
+          }
+          coverImage {
+            large
+            medium
+          }
+          meanScore
+          startDate {
+            year
+            month
+            day
+          }
+          endDate {
+            year
+            month
+            day
+          }
+          nextAiringEpisode {
+            id
+            airingAt
+            timeUntilAiring
+            episode
+          }
+          siteUrl
+        }
+      }
+    }
+  }
+}
