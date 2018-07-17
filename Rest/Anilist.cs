@@ -30,8 +30,8 @@ namespace Shintenbou.Rest
             //Add query schema
             req.Query = schema;
             req.Variables = new Dictionary<string, string>();
-            //Add variables
-            req.Variables.Add("search", (name?.Replace("'", string.Empty) ?? "Attack On Titan"));
+            //Add variables, if the user didnt provide a name then have it as null.
+            req.Variables.Add("search", (name?.Replace("'", string.Empty) ?? "null"));
             
             using (var reqMessage = new HttpRequestMessage())
             {
