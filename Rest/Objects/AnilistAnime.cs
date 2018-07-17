@@ -34,8 +34,7 @@ namespace Shintenbou.Rest.Objects
         /// </summary>
         [JsonProperty("title")]
         public AnilistTitle Title { get; private set; }
-
-
+        
         /// <summary>
         /// The cover image of the Anime
         /// </summary>
@@ -46,7 +45,7 @@ namespace Shintenbou.Rest.Objects
         /// The mean score of the Anime
         /// </summary>
         [JsonProperty("meanScore")]
-        public int MeanScore { get; private set; }
+        public int? MeanScore { get; private set; }
     
         /// <summary>
         /// The start date of the Anime

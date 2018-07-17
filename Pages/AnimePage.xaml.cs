@@ -36,7 +36,7 @@ namespace Shintenbou.Pages
         private async void OnQuerySubmit(object sender, RoutedEventArgs e)
         {
             var animes = await Anilist.GetAnimeByNameAsync(this.TextBox.Text);
-            DisplayAnimes(animes.ToList());
+            if(animes != null) DisplayAnimes(animes.ToList());
         }
 
         private async void OnKeyDown(object sender, KeyEventArgs e)
@@ -44,7 +44,7 @@ namespace Shintenbou.Pages
             if(e.Key == Key.Enter)
             {
                 var animes = await Anilist.GetAnimeByNameAsync(this.TextBox.Text);
-                DisplayAnimes(animes.ToList());
+                if(animes != null) DisplayAnimes(animes.ToList());
             }
         }
 
@@ -60,8 +60,12 @@ namespace Shintenbou.Pages
                     IsVisible = true,
                     Name = $"Img{i}",
                     MinWidth = 150,
-                    MinHeight = 250,
-                    Source = new Bitmap(animes[i].CoverImage.Medium)
+                    MinHeight = 250
+                    /*
+                     * Commented it out cause errors.
+                     * Needs to be a file. Maybe add a temp image area or smth.
+                     * Source = new Bitmap("")
+                     */
                 };
                 child.SetValue(Grid.ColumnProperty, colcount);
                 child.SetValue(Grid.RowProperty, rowcount);
