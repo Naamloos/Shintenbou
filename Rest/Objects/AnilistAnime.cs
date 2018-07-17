@@ -14,7 +14,7 @@ namespace Shintenbou.Rest.Objects
         /// The number of Episodes the Anime has
         /// </summary>
         [JsonProperty("episodes")]
-        public int Episodes { get; private set; }
+        public int? Episodes { get; private set; }
 
         /// <summary>
         /// The synopsis/description of the Anime
