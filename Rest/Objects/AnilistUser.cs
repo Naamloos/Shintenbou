@@ -28,9 +28,9 @@ namespace Shintenbou.Rest.Objects
     public struct AnilistFavourites
     {
         [JsonProperty("anime")]
-        public IEnumerable<AnilistAnime?> Animes { get; private set; }
+        public IEnumerable<AnilistAnime> Animes { get; private set; }
 
         [JsonProperty("manga")]
-        public IEnumerable<AnilistAnime?> Mangas { get; private set; }
+        public IEnumerable<AnilistManga> Mangas { get; private set; }
     }
 }

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Shintenbou
 {
@@ -26,27 +27,32 @@ namespace Shintenbou
         /// <summary>
         /// Item ID for EF Core
         /// </summary>
-        public int Id { get; private set; }
+        public int Id { get; internal set; }
 
         /// <summary>
         /// Name of the Anime
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; internal set; }
 
         /// <summary>
         /// Anime's description
         /// </summary>
-        public string Description { get; private set; }
+        public string Description { get; internal set; }
 
         /// <summary>
         /// The cover url
         /// </summary>
-        public string ImageUrl { get; private set; }
+        public string ImageUrl { get; internal set; }
+
+        /// <summary>
+        /// Get the file to the image
+        /// </summary>
+        public File ImageFile { get; internal set; }
 
         /// <summary>
         /// The time at which the user stopped/paused at
         /// </summary>
-        public float TimeIndex { get; private set; }
+        public float? TimeIndex { get; internal set; }
     }
 
     public class FavouritedManga
@@ -54,26 +60,31 @@ namespace Shintenbou
         /// <summary>
         /// Item ID for EF Core
         /// </summary>
-        public int Id { get; private set; }
+        public int Id { get; internal set; }
 
         /// <summary>
         /// Name of the Manga
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; internal set; }
 
         /// <summary>
         /// Manga's description
         /// </summary>
-        public string Description { get; private set; }
+        public string Description { get; internal set; }
 
         /// <summary>
         /// The cover url
         /// </summary>
-        public string ImageUrl { get; private set; }
+        public string ImageUrl { get; internal set; }        
+        
+        /// <summary>
+        /// Get the file to the image
+        /// </summary>
+        public File ImageFile { get; internal set; }
 
         /// <summary>
         /// The page the user was last on
         /// </summary>
-        public int Page { get; private set; }
+        public int? Page { get; internal set; }
     }
 }

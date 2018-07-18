@@ -56,16 +56,10 @@ query($name:String, $pageNumber:Int = 1, $perPage: Int = 25)
         }
       }
       manga(page: $pageNumber, perPage: $perPage)
-			{
+	  {
         nodes
         {
-          pageInfo
-          {
-            total
-            hasNextPage
-          }
           id 
-          episodes
           description
           isAdult
           status
@@ -89,15 +83,9 @@ query($name:String, $pageNumber:Int = 1, $perPage: Int = 25)
             month
             day
           }
-          nextAiringEpisode {
-            id
-            airingAt
-            timeUntilAiring
-            episode
-          }
           siteUrl
         }
       }
-    }
-  }
+	  }
+	}
 }

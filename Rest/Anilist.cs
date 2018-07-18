@@ -71,7 +71,7 @@ namespace Shintenbou.Rest
             }
         }
 
-        public static async Task<AnilistUser> GetUserByName(string name, int page = 1, int perPage = 25)
+        public static async Task<AnilistUser?> GetUserByName(string name, int page = 1, int perPage = 25)
         {
             string schema = string.Empty;
             var resourceStream = Assembly.GetEntryAssembly().GetManifestResourceStream("Shintenbou.Rest.Schema.AnilistUser.graphql");
@@ -81,8 +81,8 @@ namespace Shintenbou.Rest
             req.Query = schema;
             req.Variables = new Dictionary<string, string>();
             req.Variables.Add("name", (name?.Replace("'", string.Empty)));
-            req.Variables.Add("pageNumber", page);
-            req.Variables.Add("perPage", perPage);
+            req.Variables.Add("pageNumber", $"{page}");
+            req.Variables.Add("perPage", $"{perPage}");
             
             using (var reqMessage = new HttpRequestMessage())
             {

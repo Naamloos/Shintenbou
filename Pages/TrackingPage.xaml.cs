@@ -2,7 +2,10 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
+using Avalonia.Interactivity;
 using System.Linq;
+using Shintenbou.Rest.Objects;
+using Shintenbou.Rest;
 
 namespace Shintenbou.Pages
 {
@@ -43,7 +46,7 @@ namespace Shintenbou.Pages
                     Name = $"Img{i}",
                     MinWidth = 150,
                     MinHeight = 250,
-                    Source = new Bitmap(favani[i].ImageUrl)
+                    Source = new Bitmap(favani[i].ImageFile)
                 };
                 child.SetValue(Grid.ColumnProperty, i);
                 child.SetValue(Grid.RowProperty, 2);
@@ -67,12 +70,38 @@ namespace Shintenbou.Pages
                     Name = $"Img{i}",
                     MinWidth = 150,
                     MinHeight = 250,
-                    Source = new Bitmap(favman[i].ImageUrl)
+                    Source = new Bitmap(favman[i].ImageFile)
                 };
                 child.SetValue(Grid.ColumnProperty, i);
                 child.SetValue(Grid.RowProperty, 4);
                 Grid.Children.Add(child);
             }
+        }
+
+        private async void OnImportClick(object sender, RoutedEventArgs e)
+        {
+            //some textbox for username
+            var username = "";
+            var userdata = await Anilist.GetUserByName(username);
+            await Db.FavouriteAnime.AddRangeAsync(userdata?.Favourites?.Animes.Select(x => new FavouritedAnime()
+            {
+                Description = x?.Description,
+                Id = (Db.FavouriteAnime.Count() + 1),
+                ImageUrl = x?.CoverImage.Medium,
+                Name = x?.Title.English,
+                TimeIndex = 0
+            }));
+
+            await Db.FavouriteManga.AddRangeAsync(userdata?.Favourites?.Mangas.Select(x => new FavouritedManga()
+            {
+                Page = 1,
+                Description = x?.Description,
+                Id = (Db.FavouriteManga.Count() + 1),
+                ImageUrl = x?.CoverImage.Medium,
+                Name = x?.Title.English
+            }));
+
+            //Alert the user the task is done here
         }
     }
 }

@@ -60,6 +60,11 @@ namespace Shintenbou
 				    manga.Show();
                     break;
 
+                case Key.F3:
+                  var ab = new Windows.AlertboxWindow();
+				    ab.Show();
+                    break;
+                    
                 case Key.Escape:
                     App.Current.Exit();
                     break;
