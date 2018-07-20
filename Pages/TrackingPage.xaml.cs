@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
 using Avalonia.Interactivity;
+using System;
 using System.Linq;
 using Shintenbou.Rest.Objects;
 using Shintenbou.Rest;
@@ -80,6 +81,7 @@ namespace Shintenbou.Pages
 
         private async void OnImportClick(object sender, RoutedEventArgs e)
         {
+            Console.WriteLine("OnImport");
             //some textbox for username
             var username = "";
             var userdata = await Anilist.GetUserByName(username);
@@ -88,16 +90,17 @@ namespace Shintenbou.Pages
                 Description = x?.Description,
                 Id = (Db.FavouriteAnime.Count() + 1),
                 ImageUrl = x?.CoverImage.Medium,
+                ImageFile = null,
                 Name = x?.Title.English,
                 TimeIndex = 0
             }));
-
             await Db.FavouriteManga.AddRangeAsync(userdata?.Favourites?.Mangas.Select(x => new FavouritedManga()
             {
                 Page = 1,
                 Description = x?.Description,
                 Id = (Db.FavouriteManga.Count() + 1),
                 ImageUrl = x?.CoverImage.Medium,
+                ImageFile = null,
                 Name = x?.Title.English
             }));
 

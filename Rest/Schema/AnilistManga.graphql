@@ -1,0 +1,29 @@
+query ($search: String) {
+	Media (search: $search, type: MANGA) {
+    id 
+    description
+    isAdult
+    status
+    title {
+      romaji
+      native
+      english
+    }
+    coverImage {
+      large
+      medium
+    }
+    meanScore
+    startDate {
+      year
+      month
+      day
+    }
+    endDate {
+      year
+      month
+      day
+    }
+    siteUrl
+  }
+}

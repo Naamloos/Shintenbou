@@ -4,16 +4,16 @@ using Newtonsoft.Json;
 
 namespace Shintenbou.Rest.Objects
 {
-    public class AnilistResponse
+    public class AnilistMangaResponse
     {
         /// <summary>
         /// The Anilist Page
         /// </summary>
         [JsonProperty("Page")]
-        public PageInfo Page { get; private set; }
+        public MangaPageInfo Page { get; private set; }
     }
 
-    public struct PageInfo
+    public struct MangaPageInfo
     {
         /// <summary>
         /// Total Number of pages returned
@@ -25,6 +25,6 @@ namespace Shintenbou.Rest.Objects
         /// The list of animes that were returned
         /// </summary>
         [JsonProperty("media")]
-        public IEnumerable<AnilistAnime> Media { get; private set; }
+        public IEnumerable<AnilistManga> Media { get; private set; }
     }
 }

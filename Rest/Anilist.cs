@@ -48,9 +48,9 @@ namespace Shintenbou.Rest
                 //If the request returned successfully
                 if(response.IsSuccessStatusCode)
                 {
-                    //Deserialize it into AnilistResponse
-                    var data = JsonConvert.DeserializeObject<AnilistResponse>(JObject.Parse(content)["data"].ToString());
-                    Console.WriteLine($"Count: {data.Page.Media.Count()}");
+                    //Deserialize it into AnilistAnimeResponse
+                    var data = JsonConvert.DeserializeObject<AnilistAnimeResponse>(JObject.Parse(content)["data"].ToString());
+                    Console.WriteLine($"Anime Count: {data.Page.Media.Count()}");
                     //Return the Animes
                     return data.Page.Media;
                 }
@@ -64,6 +64,43 @@ namespace Shintenbou.Rest
                     //Create a dump log (for Release build mainly)
                     var stream = File.CreateText($"{AppContext.BaseDirectory}/errordump.txt");
                     //Write to the file
+                    await stream.WriteLineAsync($"Errors:\n{string.Join("\n", error.Errors.Select(x => x.Message))}");
+                    stream.Close();
+                    return null;
+                }
+            }
+        }
+
+        public static async Task<IEnumerable<AnilistManga>> GetMangaByNameAsync(string name)
+        {
+            string schema = string.Empty;
+            var resourceStream = Assembly.GetEntryAssembly().GetManifestResourceStream("Shintenbou.Rest.Schema.AnilistAnime.graphql");
+            using(var sr = new StreamReader(resourceStream))
+                schema = await sr.ReadToEndAsync();
+            var req = new AnilistRequest();
+            req.Query = schema;
+            req.Variables = new Dictionary<string, string>();
+            req.Variables.Add("search", (name?.Replace("'", string.Empty)));
+            
+            using (var reqMessage = new HttpRequestMessage())
+            {
+                reqMessage.Content = new StringContent(JsonConvert.SerializeObject(req));
+                reqMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");                
+                reqMessage.Method = HttpMethod.Post;
+                reqMessage.RequestUri = new Uri("https://graphql.anilist.co/");
+                var response = await _client.SendAsync(reqMessage);
+                var content = await response.Content.ReadAsStringAsync();
+                if(response.IsSuccessStatusCode)
+                {
+                    var data = JsonConvert.DeserializeObject<AnilistMangaResponse>(JObject.Parse(content)["data"].ToString());
+                    Console.WriteLine($"Manga Count: {data.Page.Media.Count()}");
+                    return data.Page.Media;
+                }
+                else
+                { 
+                    var error = JsonConvert.DeserializeObject<AnilistErrorResponse>(content);
+                    Console.WriteLine($"API Error:\n{string.Join("\n", error.Errors.Select(x => x.Message))}");
+                    var stream = File.CreateText($"{AppContext.BaseDirectory}/errordump.txt");
                     await stream.WriteLineAsync($"Errors:\n{string.Join("\n", error.Errors.Select(x => x.Message))}");
                     stream.Close();
                     return null;

@@ -3,6 +3,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using System;
+using System.IO;
 using Shintenbou.Pages;
 
 namespace Shintenbou
@@ -25,10 +26,15 @@ namespace Shintenbou
 			InitializeComponent();
 		}
 
+        protected override void HandleApplicationExiting()
+        {
+            var files = Directory.GetFiles(Path.Combine(AppContext.BaseDirectory,"images"));
+            foreach(var file in files) File.Delete(file);
+        }
+
 		private void InitializeComponent()
 		{
 			AvaloniaXamlLoader.Load(this);
-
 			// Setting references to controls
 			this.Anime = this.FindControl<Button>("Anime");
 			this.Manga = this.FindControl<Button>("Manga");
@@ -61,10 +67,15 @@ namespace Shintenbou
                     break;
 
                 case Key.F3:
-                  var ab = new Windows.AlertboxWindow();
+                  var ab = new Windows.AlertWindow("Test Alert");
 				    ab.Show();
                     break;
-                    
+
+               case Key.F4:
+                  var iw = new Windows.ImportWindow();
+				    iw.Show();
+                    break;
+
                 case Key.Escape:
                     App.Current.Exit();
                     break;

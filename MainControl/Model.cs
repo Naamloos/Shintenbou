@@ -47,7 +47,7 @@ namespace Shintenbou
         /// <summary>
         /// Get the file to the image
         /// </summary>
-        public File ImageFile { get; internal set; }
+        public string ImageFile { get; internal set; }
 
         /// <summary>
         /// The time at which the user stopped/paused at
@@ -80,7 +80,7 @@ namespace Shintenbou
         /// <summary>
         /// Get the file to the image
         /// </summary>
-        public File ImageFile { get; internal set; }
+        public string ImageFile { get; internal set; }
 
         /// <summary>
         /// The page the user was last on

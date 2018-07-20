@@ -13,8 +13,8 @@
         <RowDefinition MinHeight="10"/>
         <RowDefinition MinHeight="10"/>
       </Grid.RowDefinitions>
-      <TextBox Grid.Column="0" Grid.Row="0" Margin="25,0,0,0" Name="AnimeSearch" MinWidth="300" Height="20"/>
-      <Button Grid.Column="1" Grid.Row="0" Margin="25,0,0,0" Name="AnimeSearchButton" MinWidth="15" Height="20"/>
+      <TextBox Margin="50,-200,0,0" MinWidth="150" Height="30" Name="AnimeSearch" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+      <Button Grid.Column="1" Grid.Row="0" Margin="30,-200,0,0" Name="AnimeSearchButton" Width="80" Height="30" >Search</Button>
     </Grid>
   </ScrollViewer>
 </UserControl>

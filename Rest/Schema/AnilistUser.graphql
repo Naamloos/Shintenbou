@@ -86,6 +86,6 @@ query($name:String, $pageNumber:Int = 1, $perPage: Int = 25)
           siteUrl
         }
       }
-	  }
 	}
+  }
 }

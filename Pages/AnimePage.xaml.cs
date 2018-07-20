@@ -4,9 +4,13 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Input;
 using Avalonia.Media.Imaging;
 using Avalonia.Interactivity;
+using Avalonia.Layout;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.IO;
+using System.Text;
 using Shintenbou.Rest;
 using Shintenbou.Rest.Objects;
 
@@ -48,38 +52,46 @@ namespace Shintenbou.Pages
             }
         }
 
-        private void DisplayAnimes(IReadOnlyList<AnilistAnime> animes)
+        private async void DisplayAnimes(IReadOnlyList<AnilistAnime> animes)
         {
             int colcount = 0;
             int rowcount = 1;
-            for(var i = 0; i < animes.Count(); i++) 
+            using(var http = new HttpClient())
             {
-                var child = new Image()
+                for(var i = 0; i < animes.Count(); i++) 
                 {
-                    Margin = new Thickness(50, 0, 0, 0),
-                    IsVisible = true,
-                    Name = $"Img{i}",
-                    MinWidth = 150,
-                    MinHeight = 250
-                    /*
-                     * Commented it out cause errors.
-                     * Needs to be a file. Maybe add a temp image area or smth.
-                     * Source = new Bitmap("")
-                     */
-                };
-                child.SetValue(Grid.ColumnProperty, colcount);
-                child.SetValue(Grid.RowProperty, rowcount);
-                colcount++;
-                if(colcount == 3)
-                {
-                    colcount = 0;
-                    rowcount++;
-                    Grid.RowDefinitions.Add(new RowDefinition()
+                    //var path = Path.Combine(AppContext.BaseDirectory, "images", $"Img{i}.png");
+                    //var fs = new FileStream(path, FileMode.Create, FileAccess.Write);
+                    using(var stream = await http.GetStreamAsync(animes[i].CoverImage.Medium))
                     {
-                        MinHeight = 150
-                    });
+                        //await stream.CopyToAsync(fs);
+                        //fs.Dispose();
+                        var child = new Image()
+                        {
+                            Margin = new Thickness(50, 0, 0, 0),
+                            IsVisible = true,
+                            Name = $"Img{i}",
+                            MinWidth = 150,
+                            MinHeight = 250,
+                            Source = new Bitmap(stream)
+                        };
+                        child.HorizontalAlignment = HorizontalAlignment.Center;
+                        child.VerticalAlignment = VerticalAlignment.Center;
+                        child.SetValue(Grid.ColumnProperty, colcount);
+                        child.SetValue(Grid.RowProperty, rowcount);
+                        colcount++;
+                        if(colcount == 3)
+                        {
+                            colcount = 0;
+                            rowcount++;
+                            Grid.RowDefinitions.Add(new RowDefinition()
+                            {
+                                MinHeight = 150
+                            });
+                        }
+                        Grid.Children.Add(child);
+                    }
                 }
-                Grid.Children.Add(child);
             }
         }
     }
