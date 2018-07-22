@@ -23,12 +23,16 @@ namespace Shintenbou
 
 		public MainWindow()
 		{
+            var path = Path.Combine(AppContext.BaseDirectory,"images");
+            if(!Directory.Exists(path)) Directory.CreateDirectory(path);
 			InitializeComponent();
 		}
 
         protected override void HandleApplicationExiting()
         {
-            var files = Directory.GetFiles(Path.Combine(AppContext.BaseDirectory,"images"));
+            var path = Path.Combine(AppContext.BaseDirectory,"images");
+            if(!Directory.Exists(path)) return;
+            var files = Directory.GetFiles(path);
             foreach(var file in files) File.Delete(file);
         }
 
@@ -74,6 +78,10 @@ namespace Shintenbou
                case Key.F4:
                   var iw = new Windows.ImportWindow();
 				    iw.Show();
+                    break;
+
+               case Key.Q:
+                   Console.WriteLine($"{this.Width}x{this.Height}");
                     break;
 
                 case Key.Escape:

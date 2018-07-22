@@ -3,7 +3,7 @@
 				xmlns:Pages="clr-namespace:Shintenbou.Pages"
         Title="Shintenbou"
 				Height="500"
-				Width="500"
+				Width="840"
 				MinWidth="250"
 				MinHeight="100"
 				>

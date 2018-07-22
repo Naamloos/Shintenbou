@@ -13,7 +13,7 @@
         <RowDefinition MinHeight="10"/>
         <RowDefinition MinHeight="10"/>
       </Grid.RowDefinitions>
-      <TextBox Margin="50,-200,0,0" MinWidth="150" Height="30" Name="AnimeSearch" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+      <TextBox Margin="40,-200,0,0" MinWidth="150" Height="30" Name="AnimeSearch" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
       <Button Grid.Column="1" Grid.Row="0" Margin="30,-200,0,0" Name="AnimeSearchButton" Width="80" Height="30" >Search</Button>
     </Grid>
   </ScrollViewer>
