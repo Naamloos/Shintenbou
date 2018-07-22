@@ -71,7 +71,7 @@ namespace Shintenbou.Pages
                         fs.Dispose();
                         var child = new Image()
                         {
-                            Margin = (i > 0) ? new Thickness(50, 50, 0, 0) : new Thickness(50, -160, 0, 0),
+                            Margin = (i > 2) ? new Thickness(50, 50, 0, 0) : new Thickness(50, -200, 0, 0),
                             IsVisible = true,
                             Name = $"Img{i}",
                             Width = 150,
@@ -84,6 +84,7 @@ namespace Shintenbou.Pages
                         };
                         child.SetValue(Grid.ColumnProperty, colcount);
                         child.SetValue(Grid.RowProperty, rowcount);
+                        child.ZIndex = 1;
                         colcount++;
                         if(colcount == 3)
                         {
@@ -95,10 +96,29 @@ namespace Shintenbou.Pages
                             });
                         }
                         Grid.Children.Add(child);
+                        var button = new Button()
+                        {
+                            Margin = (i > 2) ? new Thickness(50, 50, 0, 0) : new Thickness(50, -200, 0, 0),
+                            IsVisible = true,
+                            Opacity = 0,
+                            Name = $"Btn{i}",
+                            Width = 150,
+                            Height = 250,
+                            MinWidth = 150,
+                            MinHeight = 250,
+                            HorizontalAlignment = HorizontalAlignment.Center,
+                            VerticalAlignment = VerticalAlignment.Center
+                        };
+                        button.SetValue(Grid.ColumnProperty, colcount);
+                        button.SetValue(Grid.RowProperty, rowcount);
+                        button.ZIndex = 2;
+                        button.Click += OnClick;
+                        Grid.Children.Add(button);
                     }
                 }
             }
         }
+        private void OnClick(object sender, RoutedEventArgs e) => Console.WriteLine("Clicked");
 
         private Task ClearImagesAsync()
         {

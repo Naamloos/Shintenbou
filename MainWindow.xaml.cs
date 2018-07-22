@@ -128,3 +128,6 @@ namespace Shintenbou
 		}
 	}
 }
+
+
+//IDK Mei asked for this
