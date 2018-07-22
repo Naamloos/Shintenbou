@@ -71,17 +71,17 @@ namespace Shintenbou
                     break;
 
                 case Key.F3:
-                  var ab = new Windows.AlertWindow("Test Alert");
+                    var ab = new Windows.AlertWindow("Test Alert");
 				    ab.Show();
                     break;
 
                case Key.F4:
-                  var iw = new Windows.ImportWindow();
+                    var iw = new Windows.ImportWindow();
 				    iw.Show();
                     break;
 
                case Key.Q:
-                   Console.WriteLine($"{this.Width}x{this.Height}");
+                    Console.WriteLine($"{this.Width}x{this.Height}");
                     break;
 
                 case Key.Escape:
