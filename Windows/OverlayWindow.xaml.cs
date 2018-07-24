@@ -18,7 +18,6 @@ namespace Shintenbou.Windows
         public OverlayWindow(string title, string desc, int num)
         {
             var img = Path.Combine(AppContext.BaseDirectory, "images", $"Img{num}.png");
-            Console.WriteLine(img);
             this.InitializeComponent(title, desc, img);
         }
 

@@ -62,6 +62,7 @@ namespace Shintenbou.Pages
             LoadedAnimes = new Dictionary<AnilistAnime, Button>();
             int colcount = 0;
             int rowcount = 1;
+            var topmargin = -200;
             using(var http = new HttpClient())
             {
                 for(var i = 0; i < animes.Count; i++) 
@@ -72,10 +73,10 @@ namespace Shintenbou.Pages
                     await stream.CopyToAsync(fs);
                     fs.Dispose();
                     stream.Dispose();
-
+                    
                     var child = new Image()
                     {
-                        Margin = (i > 2) ? new Thickness(50, 60, 0, 0) : new Thickness(50, -200, 0, 0),
+                        Margin = new Thickness(50, topmargin, 0, 0),
                         IsVisible = true,
                         Name = $"Img{i}",
                         Width = 150,
@@ -92,7 +93,7 @@ namespace Shintenbou.Pages
 
                     var button = new Button()
                     {
-                        Margin = (i > 2) ? new Thickness(50, 60, 0, 0) : new Thickness(50, -200, 0, 0),
+                        Margin = new Thickness(50, topmargin, 0, 0),
                         IsVisible = true,
                         Opacity = 0,
                         Name = $"Btn{i}",
@@ -115,6 +116,7 @@ namespace Shintenbou.Pages
                     {
                         colcount = 0;
                         rowcount++;
+                        topmargin = (rowcount <= 1)?  -200 : (rowcount <= 2)?  -140 : 60;
                         Grid.RowDefinitions.Add(new RowDefinition()
                         {
                             MinHeight = 150
@@ -128,10 +130,8 @@ namespace Shintenbou.Pages
         {
             var btn = this.Grid.Children.FirstOrDefault(x => x == e.Source);
             var item = this.LoadedAnimes.First(x => x.Value == btn);
-            Console.WriteLine("Clicked");
             if(Overlay != null) Overlay.Hide();
             var btnname = btn.Name.Replace("Btn", "");
-            Console.WriteLine(btnname);
             Overlay = new Windows.OverlayWindow(item.Key.Title.EnglishReadableName, item.Key.Description, int.Parse(btnname));
             Overlay.Show();
         }

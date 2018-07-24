@@ -1,22 +1,11 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="OverlayWindow"
-				Width="300"
+				Width="400"
 				Height="500">
-  <ScrollViewer Name="scroller" Background="#111111">
-    <Grid Background="lightgray" Name="OverlayGrid">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition MinWidth="20"/>
-      </Grid.ColumnDefinitions>
-
-      <Grid.RowDefinitions>
-        <RowDefinition MinHeight="10"/>
-        <RowDefinition MinHeight="10"/>
-        <RowDefinition MinHeight="10"/>
-      </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,50,0,0" Name="OverlayTitle"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,-50,0,0" Name="OverlayDescription"/>
-        <Image Grid.Row="2" Grid.Column="0" MinHeight="300" Margin="0,-50,0,0" MinWidth="150"  Name="OverlayImage"/>
-    </Grid>
-  </ScrollViewer>
+    <StackPanel Orientation="Vertical" Width="400" Background="lightgray">
+      <TextBlock Margin="0,25,0,0" Name="OverlayTitle" FontSize="30"/>
+      <TextBlock Margin="0,25,0,0" Name="OverlayDescription" TextWrapping="Wrap"/>
+      <Image MinHeight="300" Margin="0,25,0,0" MinWidth="150"  Name="OverlayImage"/>
+    </StackPanel>
 </Window>
