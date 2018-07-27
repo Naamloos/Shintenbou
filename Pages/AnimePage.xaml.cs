@@ -132,7 +132,7 @@ namespace Shintenbou.Pages
             var item = this.LoadedAnimes.First(x => x.Value == btn);
             if(Overlay != null) Overlay.Hide();
             var btnname = btn.Name.Replace("Btn", "");
-            Overlay = new Windows.OverlayWindow(item.Key.Title.EnglishReadableName, item.Key.Description, int.Parse(btnname));
+            Overlay = new Windows.OverlayWindow(item.Key.Title.EnglishReadableName, item.Key.Description.Replace("<br>", "\n"), int.Parse(btnname));
             Overlay.Show();
         }
 

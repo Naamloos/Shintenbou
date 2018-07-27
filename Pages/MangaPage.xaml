@@ -1,7 +1,20 @@
 ﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 						 xmlns:pages="clr-namespace:Pages">
-	<StackPanel>
-		<TextBlock>Manga</TextBlock>
-	</StackPanel>
+  <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+    <Grid Background="lightgray" Name="MangaGrid">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition MinWidth="20"/>
+        <ColumnDefinition MinWidth="20"/>
+        <ColumnDefinition MinWidth="20"/>
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+        <RowDefinition MinHeight="10"/>
+        <RowDefinition MinHeight="10"/>
+      </Grid.RowDefinitions>
+      <TextBox Margin="40,-200,0,0" MinWidth="150" Height="30" Name="MangaSearch" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0"/>
+      <Button Grid.Column="1" Grid.Row="0" Margin="30,-200,0,0" Name="MangaSearchButton" Width="80" Height="30" >Search</Button>
+    </Grid>
+  </ScrollViewer>
 </UserControl>

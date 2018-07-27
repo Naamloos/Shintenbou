@@ -18,6 +18,7 @@ namespace Shintenbou.Windows
         public OverlayWindow(string title, string desc, int num)
         {
             var img = Path.Combine(AppContext.BaseDirectory, "images", $"Img{num}.png");
+            if(!File.Exists(img)) img = Path.Combine(AppContext.BaseDirectory, "images", $"MangaImg{num}.png");
             this.InitializeComponent(title, desc, img);
         }
 

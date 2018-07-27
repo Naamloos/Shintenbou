@@ -3,9 +3,9 @@
         Title="OverlayWindow"
 				Width="400"
 				Height="500">
-    <StackPanel Orientation="Vertical" Width="400" Background="lightgray">
-      <TextBlock Margin="0,25,0,0" Name="OverlayTitle" FontSize="30"/>
-      <TextBlock Margin="0,25,0,0" Name="OverlayDescription" TextWrapping="Wrap"/>
-      <Image MinHeight="300" Margin="0,25,0,0" MinWidth="150"  Name="OverlayImage"/>
-    </StackPanel>
+  <StackPanel Orientation="Vertical" MinWidth="400" Background="lightgray">
+    <TextBlock Margin="25,25,0,25" Name="OverlayTitle" FontSize="30"/>
+    <TextBlock Margin="25,25,0,25" Name="OverlayDescription" TextWrapping="Wrap"/>
+    <Image MinHeight="300" Margin="0,25,0,0" MinWidth="150"  Name="OverlayImage"/>
+  </StackPanel>
 </Window>
