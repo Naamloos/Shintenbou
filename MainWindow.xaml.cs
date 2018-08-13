@@ -4,7 +4,10 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using Shintenbou.Pages;
+
+using System.Reflection;
 
 namespace Shintenbou
 {
@@ -23,6 +26,7 @@ namespace Shintenbou
 
 		public MainWindow()
 		{
+            Console.WriteLine(string.Join(" || ", Assembly.GetExecutingAssembly().GetManifestResourceNames()));
             var path = Path.Combine(AppContext.BaseDirectory,"images");
             if(!Directory.Exists(path)) Directory.CreateDirectory(path);
 			InitializeComponent();
@@ -121,13 +125,24 @@ namespace Shintenbou
 		private void HideAllPages()
 		{
 			this.WelcomePage.IsVisible = false;
-			this.AnimePage.IsVisible = false;
+			//this.AnimePage.IsVisible = false;
 			this.MangaPage.IsVisible = false;
 			this.MusicPage.IsVisible = false;
 			this.TrackingPage.IsVisible = false;
 		}
+        
+        public Task ClearImagesAsync(Grid grid)
+        {
+            var items = grid.Children;
+            if(items.Count > 2)
+            {
+                grid.Children.RemoveRange(2, (items.Count - 2));
+                grid.RowDefinitions.Clear();
+                grid.ColumnDefinitions.Clear();
+                for(var i = 0; i < 4; i++) grid.ColumnDefinitions.Add(new ColumnDefinition(){MinWidth=20});
+                for(var i = 0; i < 3; i++) grid.RowDefinitions.Add(new RowDefinition(){MinHeight=10});
+            }
+            return Task.CompletedTask;
+        }
 	}
 }
-
-
-//IDK Mei asked for this

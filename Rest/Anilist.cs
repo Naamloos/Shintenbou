@@ -74,7 +74,7 @@ namespace Shintenbou.Rest
         public static async Task<IEnumerable<AnilistManga>> GetMangaByNameAsync(string name)
         {
             string schema = string.Empty;
-            var resourceStream = Assembly.GetEntryAssembly().GetManifestResourceStream("Shintenbou.Rest.Schema.AnilistAnime.graphql");
+            var resourceStream = Assembly.GetEntryAssembly().GetManifestResourceStream("Shintenbou.Rest.Schema.AnilistManga.graphql");
             using(var sr = new StreamReader(resourceStream))
                 schema = await sr.ReadToEndAsync();
             var req = new AnilistRequest();
@@ -93,7 +93,7 @@ namespace Shintenbou.Rest
                 if(response.IsSuccessStatusCode)
                 {
                     var data = JsonConvert.DeserializeObject<AnilistMangaResponse>(JObject.Parse(content)["data"].ToString());
-                    Console.WriteLine($"Manga Count: {data.Page.Media.Count()}");
+                    Console.WriteLine($"Manga Count: {data?.Page.Media?.Count() ?? 0}");
                     return data.Page.Media;
                 }
                 else

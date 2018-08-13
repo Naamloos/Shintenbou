@@ -21,11 +21,15 @@
     <None Remove="Pages\WelcomePage.xaml" />
     <None Remove="Windows\MangaReaderWindow.xaml" />
     <None Remove="Rest\Schema\AnilistAnime.graphql" />
+    <None Remove="Rest\Schema\AnilistUser.graphql" />
+    <None Remove="Rest\Schema\AnilistManga.graphql" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Assets\logo.png" />
     <EmbeddedResource Include="Assets\logoplaceholder.png" />
     <EmbeddedResource Include="Rest\Schema\AnilistAnime.graphql" />
+    <EmbeddedResource Include="Rest\Schema\AnilistUser.graphql" />
+    <EmbeddedResource Include="Rest\Schema\AnilistManga.graphql" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.6.2-build5670-beta" />

@@ -1,29 +1,42 @@
 query ($search: String) {
-	Media (search: $search, type: MANGA) {
-    id 
-    description
-    isAdult
-    status
-    title {
-      romaji
-      native
-      english
+  Page {
+    pageInfo {
+      total
     }
-    coverImage {
-      large
-      medium
+    
+    media (search: $search, type: MANGA) {
+      # ID
+      id 
+      
+      # Manga Information
+      description
+      isAdult
+      status
+      title {
+        romaji
+        native
+        english
+      }
+      coverImage {
+        large
+        medium
+      }
+      meanScore
+
+      # Dates
+      startDate {
+        year
+        month
+        day
+      }
+      endDate {
+        year
+        month
+        day
+      }
+      
+      # Url
+      siteUrl
     }
-    meanScore
-    startDate {
-      year
-      month
-      day
-    }
-    endDate {
-      year
-      month
-      day
-    }
-    siteUrl
   }
 }
