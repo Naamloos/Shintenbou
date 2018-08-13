@@ -7,8 +7,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Shintenbou.Pages;
 
-using System.Reflection;
-
 namespace Shintenbou
 {
     public class MainWindow : Window
@@ -26,7 +24,6 @@ namespace Shintenbou
 
 		public MainWindow()
 		{
-            Console.WriteLine(string.Join(" || ", Assembly.GetExecutingAssembly().GetManifestResourceNames()));
             var path = Path.Combine(AppContext.BaseDirectory,"images");
             if(!Directory.Exists(path)) Directory.CreateDirectory(path);
 			InitializeComponent();
@@ -73,21 +70,12 @@ namespace Shintenbou
                     var manga = new Windows.MangaReaderWindow();
 				    manga.Show();
                     break;
-
-                case Key.F3:
-                    var ab = new Windows.AlertWindow("Test Alert");
-				    ab.Show();
-                    break;
-
+                    
                case Key.F4:
                     var iw = new Windows.ImportWindow();
 				    iw.Show();
                     break;
-
-               case Key.Q:
-                    Console.WriteLine($"{this.Width}x{this.Height}");
-                    break;
-
+                    
                 case Key.Escape:
                     App.Current.Exit();
                     break;
@@ -125,7 +113,7 @@ namespace Shintenbou
 		private void HideAllPages()
 		{
 			this.WelcomePage.IsVisible = false;
-			//this.AnimePage.IsVisible = false;
+			this.AnimePage.IsVisible = false;
 			this.MangaPage.IsVisible = false;
 			this.MusicPage.IsVisible = false;
 			this.TrackingPage.IsVisible = false;
