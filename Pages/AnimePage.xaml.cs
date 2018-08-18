@@ -38,7 +38,7 @@ namespace Shintenbou.Pages
         {
             await ClearImagesAsync();
             var animes = await Anilist.GetAnimeByNameAsync(this.TextBox.Text);
-            if(animes != null) await DisplayAnimes(animes.ToList());
+            if(animes != null) await DisplayAnimesAsync(animes.ToList());
         }
 
         private async void OnKeyDown(object sender, KeyEventArgs e)
@@ -47,7 +47,7 @@ namespace Shintenbou.Pages
             {
                 await ClearImagesAsync();
                 var animes = await Anilist.GetAnimeByNameAsync(this.TextBox.Text);
-                if(animes != null) await DisplayAnimes(animes.ToList());
+                if(animes != null) await DisplayAnimesAsync(animes.ToList());
             }
         }
     }

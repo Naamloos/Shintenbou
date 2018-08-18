@@ -108,7 +108,7 @@ namespace Shintenbou.Rest
             }
         }
 
-        public static async Task<AnilistUser?> GetUserByName(string name, int page = 1, int perPage = 25)
+        public static async Task<AnilistUser?> GetUserByNameAsync(string name, int page = 1, int perPage = 25)
         {
             string schema = string.Empty;
             var resourceStream = Assembly.GetEntryAssembly().GetManifestResourceStream("Shintenbou.Rest.Schema.AnilistUser.graphql");

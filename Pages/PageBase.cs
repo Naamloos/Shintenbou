@@ -25,7 +25,7 @@ namespace Shintenbou.Pages
         public Window Overlay { get; set; }
         public Dictionary<AnilistAnime, Button> LoadedAnimes { get; set; }
 
-        public async Task DisplayAnimes(IReadOnlyList<AnilistAnime> animes)
+        public async Task DisplayAnimesAsync(IReadOnlyList<AnilistAnime> animes)
         {
             LoadedAnimes = new Dictionary<AnilistAnime, Button>();
             int colcount = 0;
@@ -115,7 +115,7 @@ namespace Shintenbou.Pages
             var item = this.LoadedAnimes.First(x => x.Value == btn);
             if (Overlay != null) Overlay.Hide();
             var btnname = btn.Name.Replace("Btn", "");
-            Overlay = new Windows.OverlayWindow(item.Key.Title.EnglishReadableName, item.Key.Description.Replace("<br>", "\n"), int.Parse(btnname));
+            Overlay = new Windows.OverlayWindow(item.Key, item.Key.Title?.EnglishReadableName ?? item.Key.Title.English, item.Key.Description?.Replace("<br>", "\n") ?? "No Description", int.Parse(btnname), Source.Anime);
             Overlay.Show();
         }
     }
@@ -128,7 +128,7 @@ namespace Shintenbou.Pages
         public Window Overlay { get; set; }
         public Dictionary<AnilistManga, Button> LoadedMangas { get; set; }
 
-        public async Task DisplayMangas(IReadOnlyList<AnilistManga> Mangas)
+        public async Task DisplayMangasAsync(IReadOnlyList<AnilistManga> Mangas)
         {
             LoadedMangas = new Dictionary<AnilistManga, Button>();
             int colcount = 0;
@@ -217,8 +217,112 @@ namespace Shintenbou.Pages
             var item = this.LoadedMangas.First(x => x.Value == btn);
             if (Overlay != null) Overlay.Hide();
             var btnname = btn.Name.Replace("Btn", "");
-            Overlay = new Windows.OverlayWindow(item.Key.Title.EnglishReadableName, item.Key.Description.Replace("<br>", "\n"), int.Parse(btnname));
+            Overlay = new Windows.OverlayWindow(item.Key, item.Key.Title?.EnglishReadableName ?? item.Key.Title.English, item.Key.Description?.Replace("<br>", "\n") ?? "No Description", int.Parse(btnname), Source.Manga);
             Overlay.Show();
         }
+    }
+
+    public abstract class TrackingPageBase : UserControl
+    {
+        public Window Overlay { get; set; }
+        public Grid Grid { get; set; }
+        public Dictionary<FavouritedAnime, Button> LoadedFavAnimes { get; set; }
+        public Database Db { get; set; }
+
+        public TrackingPageBase()
+        {
+            Db = new Database();
+            Db.Database.EnsureCreated();
+            this.InitializeComponent();
+        }
+
+        private void InitializeComponent()
+        {
+            AvaloniaXamlLoader.Load(this);
+            this.Grid = this.Find<Grid>("TrackingGrid");
+            Console.WriteLine($"{this.Db.FavouriteAnime.ToList().Count()} || {this.Db.FavouriteAnime.Count()}");
+            DisplayFavouriteAnimesAsync(this.Db.FavouriteAnime.ToList());
+        }
+
+        public async Task DisplayFavouriteAnimesAsync(IReadOnlyList<FavouritedAnime> animes)
+        {
+            Console.WriteLine($"{(animes == null)} || {((animes != null)? animes.Count : -1)}");
+            LoadedFavAnimes = new Dictionary<FavouritedAnime, Button>();
+            using(var http = new HttpClient())
+            {
+                for(var i = 0; i < animes.Count; i++) 
+                {
+                    var path = Path.Combine(AppContext.BaseDirectory, "images", $"FavAniImg{i}.png");
+                    var stream = await http.GetStreamAsync(animes[i].ImageUrl);
+                    var fs = new FileStream(path, FileMode.Create, FileAccess.Write);
+                    await stream.CopyToAsync(fs);
+                    fs.Dispose();
+                    stream.Dispose();
+                    
+                    var child = new Image()
+                    {
+                        Margin = new Thickness(25, 0, 0, 0),
+                        IsVisible = true,
+                        Name = $"FavAniImg{i}",
+                        Width = 150,
+                        Height = 250,
+                        MinWidth = 150,
+                        MinHeight = 250,
+                        Source = new Bitmap(path),
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    child.SetValue(Grid.ColumnProperty, i);
+                    child.SetValue(Grid.RowProperty, 2);
+                    child.ZIndex = 1;
+
+                    var button = new Button()
+                    {
+                        Margin = new Thickness(25, 0, 0, 0),
+                        IsVisible = true,
+                        Opacity = 0,
+                        Name = $"Btn{i}",
+                        Width = 150,
+                        Height = 250,
+                        MinWidth = 150,
+                        MinHeight = 250,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    button.SetValue(Grid.ColumnProperty, i);
+                    button.SetValue(Grid.RowProperty, 2);
+                    button.ZIndex = 2;
+
+                    button.Click += OnClick;
+
+                    LoadedFavAnimes.Add(animes[i], button);
+                    this.Grid.Children.AddRange(new List<Control> {child, button});
+                    this.Grid.RowDefinitions.Add(new RowDefinition()
+                    {
+                        MinHeight = 150
+                    });
+                }
+            }
+        }
+        
+        public void OnClick(object sender, RoutedEventArgs e)
+        {
+            var btn = this.Grid.Children.FirstOrDefault(x => x == e.Source);
+            var item = this.LoadedFavAnimes.First(x => x.Value == btn);
+            if (Overlay != null) Overlay.Hide();
+            var btnname = btn.Name.Replace("Btn", "");
+            Overlay = new Windows.OverlayWindow(item.Key, item.Key.Name, item.Key.Description?.Replace("<br>", "\n") ?? "No Description", int.Parse(btnname), Source.FavAnime);
+            Overlay.Show();
+        }
+    }
+
+    public enum Source
+    {
+        Anime = 0,
+        Manga = 1,
+        Music = 2,
+        FavAnime = 3,
+        FavManga = 4,
+        FavMusic = 5
     }
 }

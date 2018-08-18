@@ -84,28 +84,28 @@ namespace Shintenbou
 
 		private void Tracking_Click(object sender, RoutedEventArgs e)
 		{
-			Console.WriteLine("Clicked Tracking Button");
+            this.Title = "Shintenbou: Tracking";
 			HideAllPages();
 			this.TrackingPage.IsVisible = true;
 		}
 
 		private void Music_Click(object sender, RoutedEventArgs e)
 		{
-			Console.WriteLine("Clicked Music Button");
+            this.Title = "Shintenbou: Music";
 			HideAllPages();
 			this.MusicPage.IsVisible = true;
 		}
 
 		private void Manga_Click(object sender, RoutedEventArgs e)
 		{
-			Console.WriteLine("Clicked Manga Button");
+            this.Title = "Shintenbou: Manga";
 			HideAllPages();
 			this.MangaPage.IsVisible = true;
 		}
 
 		private void Anime_Click(object sender, RoutedEventArgs e)
 		{
-			Console.WriteLine("Clicked Anime Button");
+            this.Title = "Shintenbou: Anime";
 			HideAllPages();
 			this.AnimePage.IsVisible = true;
 		}

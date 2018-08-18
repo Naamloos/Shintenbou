@@ -39,7 +39,7 @@ namespace Shintenbou.Pages
         {
             await ClearImagesAsync();
             var Mangas = await Anilist.GetMangaByNameAsync(this.TextBox.Text);
-            if(Mangas != null) await DisplayMangas(Mangas.ToList());
+            if(Mangas != null) await DisplayMangasAsync(Mangas.ToList());
         }
 
         private async void OnKeyDown(object sender, KeyEventArgs e)
@@ -48,7 +48,7 @@ namespace Shintenbou.Pages
             {
                 await ClearImagesAsync();
                 var Mangas = await Anilist.GetMangaByNameAsync(this.TextBox.Text);
-                if(Mangas != null) await DisplayMangas(Mangas.ToList());
+                if(Mangas != null) await DisplayMangasAsync(Mangas.ToList());
             }
         }
     }

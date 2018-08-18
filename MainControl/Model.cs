@@ -1,3 +1,4 @@
+//using Avalonia.Controls;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,7 @@ namespace Shintenbou
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=shintenbou.db");
+            optionsBuilder.UseSqlite("Data Source=Shintenbou.db");
         }
     }
 
@@ -45,9 +46,9 @@ namespace Shintenbou
         public string ImageUrl { get; internal set; }
 
         /// <summary>
-        /// Get the file to the image
+        /// Get the Image
         /// </summary>
-        public string ImageFile { get; internal set; }
+        //public Stream Image { get; internal set; }
 
         /// <summary>
         /// The time at which the user stopped/paused at
@@ -78,9 +79,9 @@ namespace Shintenbou
         public string ImageUrl { get; internal set; }        
         
         /// <summary>
-        /// Get the file to the image
+        /// Get the Image
         /// </summary>
-        public string ImageFile { get; internal set; }
+        //public Stream Image { get; internal set; }
 
         /// <summary>
         /// The page the user was last on

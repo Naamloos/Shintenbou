@@ -3,7 +3,7 @@
 						 xmlns:pages="clr-namespace:Pages"
 						 >
 
-	<StackPanel Gap="5">
+	<StackPanel Gap="5" Background="lightgray" Width="300" Height="150">
 		<Image Height="100" Width="250" Name="Logo"></Image>
 		<TextBlock HorizontalAlignment="Center">Welcome to Shintenbou</TextBlock>
 	</StackPanel>

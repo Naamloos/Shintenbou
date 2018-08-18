@@ -3,11 +3,13 @@
         Title="OverlayWindow"
 				Width="400"
 				Height="500">
-  <ScrollViewer>
-  <StackPanel Orientation="Vertical" MinWidth="400" Background="lightgray">
-    <TextBlock Margin="25,25,0,25" Name="OverlayTitle" FontSize="30"/>
-    <TextBlock Margin="25,25,0,25" Name="OverlayDescription" TextWrapping="Wrap"/>
-    <Image MinHeight="300" Margin="0,25,0,0" MinWidth="150"  Name="OverlayImage"/>
-  </StackPanel>
+  
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+    <StackPanel Background="#FF2D2D30" Orientation="Vertical" MinWidth="400">
+      <Button Name="FavButton" Width="100" Height="30">Favourite</Button>
+      <TextBlock FontStyle="Oblique" Foreground="#FFF4F4F5" Margin="25,25,0,0" Name="OverlayTitle" FontSize="30"/>
+      <TextBlock Foreground="#FFF4F4F5" Margin="25,25,25,25" Name="OverlayDescription" TextWrapping="Wrap"/>
+      <Image MinHeight="300" Margin="0,25,0,0" MinWidth="150"  Name="OverlayImage"/>
+    </StackPanel>
   </ScrollViewer>
 </Window>
