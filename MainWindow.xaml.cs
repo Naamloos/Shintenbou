@@ -4,13 +4,18 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using System;
 using System.IO;
-using System.Threading.Tasks;
 using Shintenbou.Pages;
+using DiscordRPC;
+using Shintenbou.MainControl;
+using Newtonsoft.Json;
 
 namespace Shintenbou
 {
     public class MainWindow : Window
 	{
+        DiscordRpcClient RpcClient { get; set; }
+        Settings Settings { get; set; }
+
 		Button Anime;
 		Button Manga;
 		Button Music;
@@ -31,6 +36,7 @@ namespace Shintenbou
 
         protected override void HandleApplicationExiting()
         {
+            RpcClient.Dispose();
             var path = Path.Combine(AppContext.BaseDirectory,"images");
             if(!Directory.Exists(path)) return;
             var files = Directory.GetFiles(path);
@@ -39,7 +45,7 @@ namespace Shintenbou
 
 		private void InitializeComponent()
 		{
-			AvaloniaXamlLoader.Load(this);
+            AvaloniaXamlLoader.Load(this);
 			// Setting references to controls
 			this.Anime = this.FindControl<Button>("Anime");
 			this.Manga = this.FindControl<Button>("Manga");
@@ -58,11 +64,35 @@ namespace Shintenbou
 			this.Manga.Click += Manga_Click;
 			this.Music.Click += Music_Click;
 			this.Tracking.Click += Tracking_Click;
-
 			this.KeyDown += MainWindow_KeyDown;
-		}
 
-		private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+            var path = Path.Combine(AppContext.BaseDirectory, "settings.json");
+            Settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(path));
+
+            if (!Settings.EnableRpc) return;
+            RpcClient = new DiscordRpcClient("487373829673451530", false, -1);
+            RpcClient.OnPresenceUpdate += (sender, e) =>
+            {
+                Console.WriteLine($"Update: {e.Presence}");
+            };
+            RpcClient.Initialize();
+            RpcClient.SetPresence(new RichPresence()
+            {
+                Details = "Using Shintenbou",
+                State = "At Main Screen",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "placeholder",
+                    LargeImageText = "Place holder",
+                },
+                Timestamps = new Timestamps()
+                {
+                    Start = DateTime.Now
+                }
+            });
+        }
+
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
 		{
             switch(e.Key)
             {
@@ -82,33 +112,81 @@ namespace Shintenbou
             }
 		}
 
-		private void Tracking_Click(object sender, RoutedEventArgs e)
-		{
+        private void Tracking_Click(object sender, RoutedEventArgs e)
+        {
             this.Title = "Shintenbou: Tracking";
-			HideAllPages();
-			this.TrackingPage.IsVisible = true;
-		}
+            HideAllPages();
+            this.TrackingPage.IsVisible = true;
+
+            if (!Settings.EnableRpc) return;
+            RpcClient.SetPresence(new RichPresence()
+            {
+                Details = "Using Shintenbou",
+                State = "At Tracking Page",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "placeholder",
+                    LargeImageText = "Place holder",
+                }
+            });
+        }
 
 		private void Music_Click(object sender, RoutedEventArgs e)
 		{
             this.Title = "Shintenbou: Music";
 			HideAllPages();
 			this.MusicPage.IsVisible = true;
-		}
+
+            if (!Settings.EnableRpc) return;
+            RpcClient.SetPresence(new RichPresence()
+            {
+                Details = "Using Shintenbou",
+                State = "At Music Page",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "placeholder",
+                    LargeImageText = "Place holder",
+                }
+            });
+        }
 
 		private void Manga_Click(object sender, RoutedEventArgs e)
-		{
+        {
             this.Title = "Shintenbou: Manga";
 			HideAllPages();
 			this.MangaPage.IsVisible = true;
-		}
+
+            if (!Settings.EnableRpc) return;
+            RpcClient.SetPresence(new RichPresence()
+            {
+                Details = "Using Shintenbou",
+                State = "At Manga Page",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "placeholder",
+                    LargeImageText = "Place holder",
+                }
+            });
+        }
 
 		private void Anime_Click(object sender, RoutedEventArgs e)
-		{
+        {
             this.Title = "Shintenbou: Anime";
 			HideAllPages();
 			this.AnimePage.IsVisible = true;
-		}
+
+            if (!Settings.EnableRpc) return;
+            RpcClient.SetPresence(new RichPresence()
+            {
+                Details = "Using Shintenbou",
+                State = "At Anime Page",
+                Assets = new Assets()
+                {
+                    LargeImageKey = "placeholder",
+                    LargeImageText = "Place holder",
+                }
+            });
+        }
 
 		private void HideAllPages()
 		{
@@ -118,19 +196,5 @@ namespace Shintenbou
 			this.MusicPage.IsVisible = false;
 			this.TrackingPage.IsVisible = false;
 		}
-        
-        public Task ClearImagesAsync(Grid grid)
-        {
-            var items = grid.Children;
-            if(items.Count > 2)
-            {
-                grid.Children.RemoveRange(2, (items.Count - 2));
-                grid.RowDefinitions.Clear();
-                grid.ColumnDefinitions.Clear();
-                for(var i = 0; i < 4; i++) grid.ColumnDefinitions.Add(new ColumnDefinition(){MinWidth=20});
-                for(var i = 0; i < 3; i++) grid.RowDefinitions.Add(new RowDefinition(){MinHeight=10});
-            }
-            return Task.CompletedTask;
-        }
 	}
 }
