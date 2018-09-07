@@ -8,7 +8,6 @@ using Shintenbou.Pages;
 using MuscordRpc;
 using Shintenbou.MainControl;
 using Newtonsoft.Json;
-using System.Timers;
 using System.Diagnostics;
 
 namespace Shintenbou
@@ -16,8 +15,9 @@ namespace Shintenbou
     public class MainWindow : Window
 	{
         DateTime _startTime { get; } = Process.GetCurrentProcess().StartTime;
-        Timer _timer { get; set; }
+
         RpcClient _rpcClient { get; set; }
+
         Settings _settings { get; set; }
 
 		Button _anime;
@@ -76,8 +76,6 @@ namespace Shintenbou
             if (!_settings.EnableRpc) return;
             _rpcClient = new RpcClient(487373829673451530);//("487373829673451530", false, -1);
             _rpcClient.Connect();
-            _timer = new Timer(5000);
-           // _timer.Elapsed += _timer_Elapsed;
             _rpcClient.ModfiyPresence(x =>
             {
                 x.Details = "Using Shintenbou";
@@ -87,8 +85,6 @@ namespace Shintenbou
                 x.StartTimestamp = _startTime;
             });
         }
-
-        //private void _timer_Elapsed(object sender, ElapsedEventArgs e) => _rpcClient.Connect
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
 		{
