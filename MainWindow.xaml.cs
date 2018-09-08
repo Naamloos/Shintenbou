@@ -5,10 +5,10 @@ using Avalonia.Interactivity;
 using System;
 using System.IO;
 using Shintenbou.Pages;
-using MuscordRpc;
 using Shintenbou.MainControl;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using DiscsharpRPC;
 
 namespace Shintenbou
 {
@@ -76,12 +76,15 @@ namespace Shintenbou
             if (!_settings.EnableRpc) return;
             _rpcClient = new RpcClient(487373829673451530);//("487373829673451530", false, -1);
             _rpcClient.Connect();
-            _rpcClient.ModfiyPresence(x =>
+            _rpcClient.ModifyPresence(x =>
             {
                 x.Details = "Using Shintenbou";
                 x.State = "At Main Screen";
-                x.LargeImage = "placeholder";
-                x.LargeImageText = "Place holder";
+                x.Assets = y =>
+                {
+                    y.LargeImage = "placeholder";
+                    y.LargeImageText = "Place holder";
+                };
                 x.StartTimestamp = _startTime;
             });
         }
@@ -113,12 +116,15 @@ namespace Shintenbou
             this._trackingPage.IsVisible = true;
 
             if (!_settings.EnableRpc) return;
-            _rpcClient.ModfiyPresence(x =>
+            _rpcClient.ModifyPresence(x =>
             {
                 x.Details = "Using Shintenbou";
                 x.State = "At Tracking Screen";
-                x.LargeImage = "placeholder";
-                x.LargeImageText = "Place holder";
+                x.Assets = y =>
+                {
+                    y.LargeImage = "placeholder";
+                    y.LargeImageText = "Place holder";
+                };
                 x.StartTimestamp = _startTime;
             });
         }
@@ -130,12 +136,15 @@ namespace Shintenbou
 			this._musicPage.IsVisible = true;
 
             if (!_settings.EnableRpc) return;
-            _rpcClient.ModfiyPresence(x =>
+            _rpcClient.ModifyPresence(x =>
             {
                 x.Details = "Using Shintenbou";
                 x.State = "At Music Screen";
-                x.LargeImage = "placeholder";
-                x.LargeImageText = "Place holder";
+                x.Assets = y =>
+                {
+                    y.LargeImage = "placeholder";
+                    y.LargeImageText = "Place holder";
+                };
                 x.StartTimestamp = _startTime;
             });
         }
@@ -147,12 +156,15 @@ namespace Shintenbou
 			this._mangaPage.IsVisible = true;
 
             if (!_settings.EnableRpc) return;
-            _rpcClient.ModfiyPresence(x =>
+            _rpcClient.ModifyPresence(x =>
             {
                 x.Details = "Using Shintenbou";
                 x.State = "At Manga Screen";
-                x.LargeImage = "placeholder";
-                x.LargeImageText = "Place holder";
+                x.Assets = y =>
+                {
+                    y.LargeImage = "placeholder";
+                    y.LargeImageText = "Place holder";
+                };
                 x.StartTimestamp = _startTime;
             });
         }
@@ -164,12 +176,15 @@ namespace Shintenbou
 			this._animePage.IsVisible = true;
 
             if (!_settings.EnableRpc) return;
-            _rpcClient.ModfiyPresence(x =>
+            _rpcClient.ModifyPresence(x =>
             {
                 x.Details = "Using Shintenbou";
                 x.State = "At Anime Screen";
-                x.LargeImage = "placeholder";
-                x.LargeImageText = "Place holder";
+                x.Assets = y =>
+                {
+                    y.LargeImage = "placeholder";
+                    y.LargeImageText = "Place holder";
+                };
                 x.StartTimestamp = _startTime;
             });
         }

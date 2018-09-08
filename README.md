@@ -15,7 +15,7 @@ Tracking - Keep track of what you've watched and how long you've been reading.
 
 [Anilist](https://anilist.co/home) - "The [AniList GraphQL Api](https://github.com/AniList) provides quick and powerful access to over 500k anime and manga entries, including character, staff, and live airing data. The AniList & AniChart websites themselves run on the Api, so everything you can do on the sites, you can do via the Api."
 
-[Muscord](https://owo.codes/izumemori/Muscord) - "A tool to display what you are listening to as discord status"
+[DiscsharpRPC](https://owo.codes/izumemori/DiscsharpRPC) - Discord RPC Implementation created by Izu
 
 
 

@@ -39,8 +39,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />  
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MuscordRpc">
-      <HintPath>Assets\MuscordRpc.dll</HintPath>
+    <Reference Include="DiscsharpRPC">
+      <HintPath>Assets\DiscsharpRPC.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
