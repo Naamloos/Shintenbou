@@ -1,7 +1,5 @@
 //using Avalonia.Controls;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.IO;
 
 namespace Shintenbou
 {

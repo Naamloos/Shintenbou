@@ -1,11 +1,6 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
-using Avalonia.Media.Imaging;
-using Avalonia.Interactivity;
+﻿using Avalonia.Interactivity;
 using System;
 using System.Linq;
-using Shintenbou.Rest.Objects;
 using Shintenbou.Rest;
 
 namespace Shintenbou.Pages

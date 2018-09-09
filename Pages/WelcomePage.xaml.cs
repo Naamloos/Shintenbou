@@ -1,14 +1,11 @@
-﻿using Avalonia;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
-using System;
-using System.IO;
 using System.Reflection;
 
 namespace Shintenbou.Pages
 {
-	public class WelcomePage : UserControl
+    public class WelcomePage : UserControl
 	{
 		Image LogoImage;
 		public WelcomePage()

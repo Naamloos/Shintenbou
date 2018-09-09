@@ -1,32 +1,33 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
 using Avalonia.Interactivity;
-using Shintenbou;
 using Shintenbou.Pages;
 using Shintenbou.Rest.Objects;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Linq;
+using Avalonia;
+using DiscsharpRPC;
 
 namespace Shintenbou.Windows
 {
     public class OverlayWindow : Window
     {
-        Button FavButton { get; set; }
-        TextBlock OverlayTitle { get; set; }
-        TextBlock OverlayDescription { get; set; }
-        Image OverlayIcon { get; set; }
-        Object OverlayItem { get; set; }
-        Source Source { get; set; }
+        Database _model { get; set;  }
+        Button _favButton { get; set; }
+        TextBlock _overlayTitle { get; set; }
+        TextBlock _overlayDescription { get; set; }
+        Image _overlayIcon { get; set; }
+        object _overlayItem { get; set; }
+        Source _source { get; set; }
 
         public OverlayWindow(object item, string title, string desc, int num, Source source)
         {
-            this.OverlayItem = item;
-            this.Source = source;
+            this._model = new Database();
+            this._model.Database.EnsureCreated();
+            this._overlayItem = item;
+            this._source = source;
             string filename = "";
             switch(source)
             {
@@ -50,42 +51,37 @@ namespace Shintenbou.Windows
         private void InitializeComponent(string title, string desc, string icon_path)
         {
             AvaloniaXamlLoader.Load(this);
-            this.OverlayTitle = this.Find<TextBlock>("OverlayTitle");
-            this.OverlayDescription = this.Find<TextBlock>("OverlayDescription");
-            this.OverlayIcon = this.Find<Image>("OverlayImage");
-            this.FavButton = this.Find<Button>("FavButton");
-            this.FavButton.Click += OnClick;
-            var db = new Database();
-            db.Database.EnsureCreated();
+            this._overlayTitle = this.Find<TextBlock>("OverlayTitle");
+            this._overlayDescription = this.Find<TextBlock>("OverlayDescription");
+            this._overlayIcon = this.Find<Image>("OverlayImage");
+            this._favButton = this.Find<Button>("FavButton");
+            this._favButton.Click += OnClick;
             var arr = new[]{Source.FavAnime, Source.FavManga, Source.FavMusic};
-            if(arr.Any(x => x == Source) || db.FavouriteAnime.Any(x => x.Name == title) || db.FavouriteManga.Any(x => x.Name == title)) this.FavButton.IsVisible = false;
-            db.Dispose();
-            this.OverlayTitle.Text = title;
-            this.OverlayDescription.Text = desc;
-            this.OverlayIcon.Source = new Bitmap(icon_path);
+            if(arr.Any(x => x == _source) || this._model.FavouriteAnime.Any(x => x.Name == title) || this._model.FavouriteManga.Any(x => x.Name == title)) this._favButton.IsVisible = false;
+            this._overlayTitle.Text = title;
+            this._overlayDescription.Text = desc;
+            this._overlayIcon.Source = new Bitmap(icon_path);
         }
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            var db = new Database();
-            db.Database.EnsureCreated();
-            switch(this.Source)
+            switch(this._source)
             {
                 case Source.Anime:
-                    var aniitem = this.OverlayItem as AnilistAnime;
-                    db.FavouriteAnime?.Add(new FavouritedAnime()
+                    var aniitem = this._overlayItem as AnilistAnime;
+                    this._model.FavouriteAnime?.Add(new FavouritedAnime()
                     {
                         Description = aniitem.Description,
                         Name = aniitem.Title?.EnglishReadableName ?? aniitem.Title.English,
                         //Image = OverlayIcon,
                         ImageUrl = aniitem.CoverImage.Medium
                     });
-                    db.SaveChanges();
+                    this._model.SaveChanges();
                     break;
                 
                 case Source.Manga:
-                    var manitem = this.OverlayItem as AnilistManga;
-                    db.FavouriteManga.Add(new FavouritedManga()
+                    var manitem = this._overlayItem as AnilistManga;
+                    this._model.FavouriteManga.Add(new FavouritedManga()
                     {
                         Description = manitem.Description,
                         Name = manitem.Title?.EnglishReadableName ?? manitem.Title.English,
@@ -93,9 +89,33 @@ namespace Shintenbou.Windows
                         ImageUrl = manitem.CoverImage.Medium,
                         Page = 1
                     });
-                    db.SaveChanges();
+                    this._model.SaveChanges();
                     break;
             }
+        }
+
+        protected override bool HandleClosing()
+        {
+            var client = Application.Current.MainWindow.Resources.FirstOrDefault(x => (string)x.Key == "rpc").Value as RpcClient;
+            switch(this._source)
+            {
+                case Source.Anime:
+                    client.ModifyPresence(x => x.State = "At Anime Screen");
+                    break;
+                
+                case Source.Manga:
+                    client.ModifyPresence(x => x.State = "At Manga Screen");
+                    break;
+
+                case Source.Music:
+                    client.ModifyPresence(x => x.State = "At Music Screen");
+                    break;
+
+                default:
+                    client.ModifyPresence(x => x.State = "At Tracking Screen");
+                    break;
+            }
+            return base.HandleClosing();
         }
     }
 }

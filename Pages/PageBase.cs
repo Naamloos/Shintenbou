@@ -1,7 +1,6 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
-using Avalonia.Input;
 using Avalonia.Media.Imaging;
 using Avalonia.Interactivity;
 using Avalonia.Layout;
@@ -10,10 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
-using Shintenbou.Rest;
 using Shintenbou.Rest.Objects;
+using DiscsharpRPC;
 
 namespace Shintenbou.Pages
 {
@@ -111,11 +109,14 @@ namespace Shintenbou.Pages
 
         public void OnClick(object sender, RoutedEventArgs e)
         {
+            var client = Application.Current.MainWindow.Resources.FirstOrDefault(res => (string)res.Key == "rpc").Value as RpcClient;
             var btn = this.Grid.Children.FirstOrDefault(x => x == e.Source);
             var item = this.LoadedAnimes.First(x => x.Value == btn);
             if (Overlay != null) Overlay.Hide();
             var btnname = btn.Name.Replace("Btn", "");
-            Overlay = new Windows.OverlayWindow(item.Key, item.Key.Title?.EnglishReadableName ?? item.Key.Title.English, item.Key.Description?.Replace("<br>", "\n") ?? "No Description", int.Parse(btnname), Source.Anime);
+            var name = item.Key.Title?.EnglishReadableName ?? item.Key.Title.English;
+            Overlay = new Windows.OverlayWindow(item.Key, name, item.Key.Description?.Replace("<br>", "\n") ?? "No Description", int.Parse(btnname), Source.Anime);
+            client?.ModifyPresence(x => x.State = $"Viewing {name}");
             Overlay.Show();
         }
     }
@@ -213,11 +214,14 @@ namespace Shintenbou.Pages
 
         public void OnClick(object sender, RoutedEventArgs e)
         {
+            var client = Application.Current.MainWindow.Resources.FirstOrDefault(res => (string)res.Key == "rpc").Value as RpcClient;
             var btn = this.Grid.Children.FirstOrDefault(x => x == e.Source);
             var item = this.LoadedMangas.First(x => x.Value == btn);
             if (Overlay != null) Overlay.Hide();
             var btnname = btn.Name.Replace("Btn", "");
-            Overlay = new Windows.OverlayWindow(item.Key, item.Key.Title?.EnglishReadableName ?? item.Key.Title.English, item.Key.Description?.Replace("<br>", "\n") ?? "No Description", int.Parse(btnname), Source.Manga);
+            var name = item.Key.Title?.EnglishReadableName ?? item.Key.Title.English;
+            Overlay = new Windows.OverlayWindow(item.Key, name, item.Key.Description?.Replace("<br>", "\n") ?? "No Description", int.Parse(btnname), Source.Manga);
+            client?.ModifyPresence(x => x.State = $"Viewing {name}");
             Overlay.Show();
         }
     }
@@ -307,11 +311,13 @@ namespace Shintenbou.Pages
         
         public void OnClick(object sender, RoutedEventArgs e)
         {
+            var client = Application.Current.MainWindow.Resources.FirstOrDefault(res => (string)res.Key == "rpc").Value as RpcClient;
             var btn = this.Grid.Children.FirstOrDefault(x => x == e.Source);
             var item = this.LoadedFavAnimes.First(x => x.Value == btn);
             if (Overlay != null) Overlay.Hide();
             var btnname = btn.Name.Replace("Btn", "");
             Overlay = new Windows.OverlayWindow(item.Key, item.Key.Name, item.Key.Description?.Replace("<br>", "\n") ?? "No Description", int.Parse(btnname), Source.FavAnime);
+            client.ModifyPresence(x => x.State = $"Viewing {item.Key.Name}");
             Overlay.Show();
         }
     }

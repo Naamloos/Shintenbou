@@ -2,29 +2,32 @@
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media.Imaging;
-using System;
-using System.Collections.Generic;
+using DiscsharpRPC;
 using System.IO;
+using System.Linq;
 
 namespace Shintenbou.Windows
 {
-	public class MangaReaderWindow : Window
+    public class MangaReaderWindow : Window
 	{
 		Grid list;
 		ScrollViewer scroll;
-		public MangaReaderWindow()
+		public MangaReaderWindow(string name)
 		{
-			this.InitializeComponent();
+			this.InitializeComponent(name);
 		}
 
-		private void InitializeComponent()
+		private void InitializeComponent(string name)
 		{
 			AvaloniaXamlLoader.Load(this);
 			this.list = this.FindControl<Grid>("pagelist");
 			this.scroll = this.FindControl<ScrollViewer>("scroller");
 			var mgs = Directory.GetFiles("testmanga");
 
-			int i = 0;
+            var client = Application.Current.MainWindow.Resources.FirstOrDefault(x => (string)x.Key == "rpc").Value as RpcClient;
+            client.ModifyPresence(x => x.State = $"Reading {name}");
+
+            int i = 0;
 			foreach (var m in mgs)
 			{
 				using (var img = new FileStream(m, FileMode.Open))

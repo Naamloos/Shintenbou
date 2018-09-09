@@ -14,7 +14,7 @@ namespace Shintenbou
 {
     public class MainWindow : Window
 	{
-        DateTime _startTime { get; } = Process.GetCurrentProcess().StartTime;
+        DateTime _startTime { get; set;  }
 
         RpcClient _rpcClient { get; set; }
 
@@ -33,6 +33,7 @@ namespace Shintenbou
 
 		public MainWindow()
 		{
+            this._startTime = Process.GetCurrentProcess().StartTime;
             var path = Path.Combine(AppContext.BaseDirectory,"images");
             if(!Directory.Exists(path)) Directory.CreateDirectory(path);
 			InitializeComponent();
@@ -74,7 +75,8 @@ namespace Shintenbou
             _settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText(path));
 
             if (!_settings.EnableRpc) return;
-            _rpcClient = new RpcClient(487373829673451530);//("487373829673451530", false, -1);
+            _rpcClient = new RpcClient(487373829673451530);
+            base.Resources.Add("rpc", _rpcClient);
             _rpcClient.Connect();
             _rpcClient.ModifyPresence(x =>
             {
@@ -94,7 +96,7 @@ namespace Shintenbou
             switch(e.Key)
             {
                 case Key.F2:
-                    var manga = new Windows.MangaReaderWindow();
+                    var manga = new Windows.MangaReaderWindow("testmanga");
 				    manga.Show();
                     break;
                     
