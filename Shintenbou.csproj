@@ -17,6 +17,7 @@
     <None Remove="Pages\AnimePage.xaml" />
     <None Remove="Pages\MangaPage.xaml" />
     <None Remove="Pages\MusicPage.xaml" />
+    <None Remove="Pages\SettingsPage.xaml" />
     <None Remove="Pages\TrackingPage.xaml" />
     <None Remove="Pages\WelcomePage.xaml" />
     <None Remove="Windows\MangaReaderWindow.xaml" />
@@ -36,14 +37,34 @@
     <PackageReference Include="Avalonia.Desktop" Version="0.6.2-build5670-beta" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.1.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />  
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />  
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DiscsharpRPC">
       <HintPath>Assets\DiscsharpRPC.dll</HintPath>
     </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>mscorlib</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>System</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Assets\Settings.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Pages\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Pages\SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Pages\AnimePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
@@ -62,5 +83,11 @@
     <EmbeddedResource Update="Windows\MangaReaderWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Assets\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 </Project>

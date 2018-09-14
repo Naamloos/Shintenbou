@@ -1,0 +1,17 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+						 xmlns:pages="clr-namespace:Pages">
+    <Grid Background="#FF2D2D30" Name="AnimeGrid">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition MinWidth="20"/>
+        <ColumnDefinition MinWidth="20"/>
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+        <RowDefinition MinHeight="20"/>
+        <RowDefinition MinHeight="20"/>
+      </Grid.RowDefinitions>
+      <TextBlock Margin="25,0,0,0" Grid.Row="0"  Grid.Column="0" Height="50" Foreground="white">Discord RPC: </TextBlock>
+    <Button Margin="-750,0,-25,0" Grid.Row="0"  Grid.Column="1" Name="rpcbtn" Width="100" Height="30">Disabled</Button>
+  </Grid>
+</UserControl>

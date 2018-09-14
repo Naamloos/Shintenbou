@@ -12,18 +12,21 @@
 			<ColumnDefinition Width="100"/>
 			<ColumnDefinition Width="*"/>
 		</Grid.ColumnDefinitions>
+    
 		<StackPanel Grid.Column="0" Width="100" Background="dimgray">
 			<Button Name="Anime" Content="Anime" Background="lightgray"></Button>
 			<Button Name="Manga" Content="Manga" Background="lightgray"></Button>
 			<Button Name="Music" Content="Music" Background="lightgray"></Button>
-			<Button Name="Tracking" Content="Tracking" Background="lightgray"></Button>
+      <Button Name="Tracking" Content="Tracking" Background="lightgray"></Button>
+      <Button Name="Settings" Content="Settings" Background="lightgray"></Button>
 		</StackPanel>
 
 		<Pages:WelcomePage Grid.Column="1" Name="WelcomePage" IsVisible="true" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 		<Pages:AnimePage Grid.Column="1"  Name="AnimePage" IsVisible="false"/>
 		<Pages:MangaPage Grid.Column="1"  Name="MangaPage" IsVisible="false"/>
 		<Pages:MusicPage Grid.Column="1"  Name="MusicPage" IsVisible="false"/>
-		<Pages:TrackingPage Grid.Column="1"  Name="TrackingPage" IsVisible="false"/>
+    <Pages:TrackingPage Grid.Column="1"  Name="TrackingPage" IsVisible="false"/>
+    <Pages:SettingsPage Grid.Column="1"  Name="SettingsPage" IsVisible="false"/>
 		
 	</Grid>
 </Window>
