@@ -29,7 +29,7 @@ namespace Shintenbou.Windows
             this._overlayItem = item;
             this._source = source;
             string filename = "";
-            switch(source)
+            switch (source)
             {
                 case Source.Anime:
                     filename = $"Img{num}.png";

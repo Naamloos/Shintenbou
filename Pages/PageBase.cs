@@ -97,7 +97,6 @@ namespace Shintenbou.Pages
             var items = this.Grid.Children;
             if (items.Count() > 2)
             {
-                Console.WriteLine(string.Join(" | ", items.Skip(2).Select(x => x.Name)));
                 this.Grid.Children.RemoveRange(2, (items.Count() - 2));
                 this.Grid.RowDefinitions.Clear();
                 this.Grid.ColumnDefinitions.Clear();
@@ -244,13 +243,11 @@ namespace Shintenbou.Pages
         {
             AvaloniaXamlLoader.Load(this);
             this.Grid = this.Find<Grid>("TrackingGrid");
-            Console.WriteLine($"{this.Db.FavouriteAnime.ToList().Count()} || {this.Db.FavouriteAnime.Count()}");
-            DisplayFavouriteAnimesAsync(this.Db.FavouriteAnime.ToList());
+            Task.Run(async () => await DisplayFavouriteAnimesAsync(this.Db.FavouriteAnime.ToList()));
         }
 
         public async Task DisplayFavouriteAnimesAsync(IReadOnlyList<FavouritedAnime> animes)
         {
-            Console.WriteLine($"{(animes == null)} || {((animes != null)? animes.Count : -1)}");
             LoadedFavAnimes = new Dictionary<FavouritedAnime, Button>();
             using(var http = new HttpClient())
             {

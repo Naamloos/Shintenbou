@@ -19,7 +19,6 @@ namespace Shintenbou.Rest
         
         private static async Task<T> SendRequestAsync<T>(AnilistRequest request)
         {
-            var returntype = typeof(T);
             using (var reqMessage = new HttpRequestMessage())
             {
                 reqMessage.Content = new StringContent(JsonConvert.SerializeObject(request));
