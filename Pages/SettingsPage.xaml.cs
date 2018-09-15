@@ -56,9 +56,8 @@ namespace Shintenbou.Pages
         private void _rpcBtn_Click(object sender, RoutedEventArgs e)
         {
             this._settings.EnableRpc = !this._settings.EnableRpc;
-            this._rpcBtn.Content = (this._settings.EnableRpc) ? "Enabled" : "Disabled";
+            UpdateButtons();
             var client = Application.Current.MainWindow.Resources.FirstOrDefault(res => (string)res.Key == "rpc").Value as RpcClient;
-
             switch (this._settings.EnableRpc)
             {
                 case true:
@@ -86,7 +85,7 @@ namespace Shintenbou.Pages
         private void _savePageStateBtn_Click(object sender, RoutedEventArgs e)
         {
             this._settings.SavePageState = !this._settings.SavePageState;
-            this._savePageStateBtn.Content = (this._settings.SavePageState) ? "Enabled" : "Disabled";
+            UpdateButtons();
         }
     }
 }

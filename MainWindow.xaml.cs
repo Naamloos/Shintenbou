@@ -40,6 +40,7 @@ namespace Shintenbou
 
         protected override void HandleApplicationExiting()
         {
+            _rpcClient.Clear();
             _rpcClient.Disconnect();
             var path = Path.Combine(AppContext.BaseDirectory, "images");
             if (!Directory.Exists(path)) return;
@@ -165,6 +166,16 @@ namespace Shintenbou
 
         private void HideAllPages()
         {
+            if (!this._settings.SavePageState)
+            {
+                this._welcomePage.InvalidateVisual();
+                this._animePage.InvalidateVisual();
+                this._mangaPage.InvalidateVisual();
+                this._musicPage.InvalidateVisual();
+                this._trackingPage.InvalidateVisual();
+                this._settingsPage.InvalidateVisual();
+            }
+
             this._welcomePage.IsVisible = false;
             this._animePage.IsVisible = false;
             this._mangaPage.IsVisible = false;

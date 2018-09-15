@@ -23,18 +23,18 @@ namespace Shintenbou.Pages
         public Window Overlay { get; set; }
         public Dictionary<AnilistAnime, Button> LoadedAnimes { get; set; }
 
-        public async Task DisplayAnimesAsync(IReadOnlyList<AnilistAnime> animes)
+        public async Task DisplayAnimesAsync(IEnumerable<AnilistAnime> animes)
         {
             LoadedAnimes = new Dictionary<AnilistAnime, Button>();
             int colcount = 0;
             int rowcount = 1;
-            var topmargin = -200;
+            //var topmargin = -200;
             using(var http = new HttpClient())
             {
-                for(var i = 0; i < animes.Count; i++) 
+                for(var i = 0; i < animes.Count(); i++) 
                 {
                     var path = Path.Combine(AppContext.BaseDirectory, "images", $"Img{i}.png");
-                    var stream = await http.GetStreamAsync(animes[i].CoverImage.Large);
+                    var stream = await http.GetStreamAsync(animes.ElementAt(i).CoverImage.Large);
                     var fs = new FileStream(path, FileMode.Create, FileAccess.Write);
                     await stream.CopyToAsync(fs);
                     fs.Dispose();
@@ -42,7 +42,7 @@ namespace Shintenbou.Pages
                     
                     var child = new Image()
                     {
-                        Margin = new Thickness(50, topmargin, 0, 0),
+                        Margin = new Thickness(50, 60/*topmargin*/, 0, (rowcount == 1) ? 300 : 0),
                         IsVisible = true,
                         Name = $"Img{i}",
                         Width = 150,
@@ -59,7 +59,7 @@ namespace Shintenbou.Pages
 
                     var button = new Button()
                     {
-                        Margin = new Thickness(50, topmargin, 0, 0),
+                        Margin = new Thickness(50, 60/*topmargin*/, 0, (rowcount == 1) ? 300 : 0),
                         IsVisible = true,
                         Opacity = 0,
                         Name = $"Btn{i}",
@@ -75,14 +75,14 @@ namespace Shintenbou.Pages
                     button.ZIndex = 2;
 
                     button.Click += OnClick;
-                    LoadedAnimes.Add(animes[i], button);
+                    LoadedAnimes.Add(animes.ElementAt(i), button);
                     Grid.Children.AddRange(new List<Control> {child, button});
                     colcount++;
                     if(colcount == 3)
                     {
                         colcount = 0;
                         rowcount++;
-                        topmargin = (rowcount <= 1)?  -200 : (rowcount <= 2)?  -140 : 60;
+                        //topmargin = (rowcount <= 1)?  -200 : (rowcount <= 2)?  -140 : 60;
                         Grid.RowDefinitions.Add(new RowDefinition()
                         {
                             MinHeight = 150
@@ -128,7 +128,7 @@ namespace Shintenbou.Pages
         public Window Overlay { get; set; }
         public Dictionary<AnilistManga, Button> LoadedMangas { get; set; }
 
-        public async Task DisplayMangasAsync(IReadOnlyList<AnilistManga> Mangas)
+        public async Task DisplayMangasAsync(IEnumerable<AnilistManga> Mangas)
         {
             LoadedMangas = new Dictionary<AnilistManga, Button>();
             int colcount = 0;
@@ -136,10 +136,10 @@ namespace Shintenbou.Pages
             var topmargin = -200;
             using (var http = new HttpClient())
             {
-                for (var i = 0; i < Mangas.Count; i++)
+                for (var i = 0; i < Mangas.Count(); i++)
                 {
                     var path = Path.Combine(AppContext.BaseDirectory, "images", $"MangaImg{i}.png");
-                    var stream = await http.GetStreamAsync(Mangas[i].CoverImage.Large);
+                    var stream = await http.GetStreamAsync(Mangas.ElementAt(i).CoverImage.Large);
                     var fs = new FileStream(path, FileMode.Create, FileAccess.Write);
                     await stream.CopyToAsync(fs);
                     fs.Dispose();
@@ -147,7 +147,7 @@ namespace Shintenbou.Pages
 
                     var child = new Image()
                     {
-                        Margin = new Thickness(50, topmargin, 0, 0),
+                        Margin = new Thickness(50, topmargin, 0, (rowcount == 1)? 300 : 0),
                         IsVisible = true,
                         Name = $"MangaImg{i}",
                         Width = 150,
@@ -164,7 +164,7 @@ namespace Shintenbou.Pages
 
                     var button = new Button()
                     {
-                        Margin = new Thickness(50, topmargin, 0, 0),
+                        Margin = new Thickness(50, topmargin, 0, (rowcount == 1) ? 300 : 0),
                         IsVisible = true,
                         Opacity = 0,
                         Name = $"Btn{i}",
@@ -180,7 +180,7 @@ namespace Shintenbou.Pages
                     button.ZIndex = 2;
 
                     button.Click += OnClick;
-                    LoadedMangas.Add(Mangas[i], button);
+                    LoadedMangas.Add(Mangas.ElementAt(i), button);
                     Grid.Children.AddRange(new List<Control> { child, button });
                     colcount++;
                     if (colcount == 3)
