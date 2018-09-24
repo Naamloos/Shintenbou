@@ -9,40 +9,50 @@ using System.Reflection;
 using Shintenbou.Rest.Objects;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Threading;
 
 namespace Shintenbou.Rest
 {
     public static class Anilist
     {
+        private static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
         private static KeyValuePair<int, int> _previousHeaders = new KeyValuePair<int, int>();
         private static HttpClient _client = new HttpClient();
         
         private static async Task<T> SendRequestAsync<T>(AnilistRequest request)
         {
-            using (var reqMessage = new HttpRequestMessage())
+            try
             {
-                reqMessage.Content = new StringContent(JsonConvert.SerializeObject(request));
-                reqMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                reqMessage.Method = HttpMethod.Post;
-                reqMessage.RequestUri = new Uri("https://graphql.anilist.co/");
-                if (_previousHeaders.Key == 0) await Task.Delay(_previousHeaders.Value);
-                var response = await _client.SendAsync(reqMessage);
-                var content = await response.Content.ReadAsStringAsync();
-                if (response.IsSuccessStatusCode)
+                await _semaphore.WaitAsync();
+                using (var reqMessage = new HttpRequestMessage())
                 {
-                    _previousHeaders = new KeyValuePair<int, int>(int.Parse(response.Headers.GetValues("X-RateLimit-Remaining").First()), int.Parse(response.Headers.GetValues("X-RateLimit-Reset").First()));
-                    return JsonConvert.DeserializeObject<T>(JObject.Parse(content)["data"]["Page"]["media"].ToString());
+                    reqMessage.Content = new StringContent(JsonConvert.SerializeObject(request));
+                    reqMessage.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    reqMessage.Method = HttpMethod.Post;
+                    reqMessage.RequestUri = new Uri("https://graphql.anilist.co/");
+                    if (_previousHeaders.Key == 0) await Task.Delay(_previousHeaders.Value);
+                    var response = await _client.SendAsync(reqMessage);
+                    var content = await response.Content.ReadAsStringAsync();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        _previousHeaders = new KeyValuePair<int, int>(int.Parse(response.Headers.GetValues("X-RateLimit-Remaining").First()), int.Parse(response.Headers.GetValues("X-RateLimit-Reset").First()));
+                        return JsonConvert.DeserializeObject<T>(JObject.Parse(content)["data"]["Page"]["media"].ToString());
+                    }
+                    else
+                    {
+                        var error = JsonConvert.DeserializeObject<AnilistErrorResponse>(content);
+                        Console.WriteLine($"API Error:\n{string.Join("\n", error.Errors.Select(x => x.Message))}");
+                        var stream = File.CreateText($"{AppContext.BaseDirectory}/errordump.txt");
+                        await stream.WriteLineAsync($"Errors:\n{string.Join("\n", error.Errors.Select(x => x.Message))}");
+                        stream.Close();
+                        stream.Dispose();
+                        return default(T);
+                    }
                 }
-                else
-                {
-                    var error = JsonConvert.DeserializeObject<AnilistErrorResponse>(content);
-                    Console.WriteLine($"API Error:\n{string.Join("\n", error.Errors.Select(x => x.Message))}");
-                    var stream = File.CreateText($"{AppContext.BaseDirectory}/errordump.txt");
-                    await stream.WriteLineAsync($"Errors:\n{string.Join("\n", error.Errors.Select(x => x.Message))}");
-                    stream.Close();
-                    stream.Dispose();
-                    return default(T);
-                }
+            }
+            finally
+            {
+                _semaphore.Release();
             }
         }
 
